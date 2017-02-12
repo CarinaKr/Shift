@@ -27,7 +27,8 @@ public class GamePanel extends JPanel{
 	private double zTime;
 	
 	private int zSize=40;
-	
+	private final int PAINTING_OFFSET = 6
+		
 	/**
 	 * erstellt das Panel, auf dem das Level dargestellt wird
 	 */
