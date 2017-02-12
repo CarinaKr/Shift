@@ -73,9 +73,8 @@ public class GamePanel extends JPanel{
 //				g.fillRect(zSpikes[i][0]*zSize,zSpikes[i][1]*zSize,zSize,zSize);
 //			}
 		
-			g.setColor(Color.RED);
-			//g.drawImage(zCharIMG, zPlayer.getXPos(), zPlayer.getYPos(), null);
-			g.fillRect(zPlayer.getXPos(),zPlayer.getYPos() , zPlayer.getWidth(), zPlayer.getHeight());
+			g.drawImage(zPlayer.getCharImg(), zPlayer.getXPos()-PAINTING_OFFSET, zPlayer.getYPos(), zPlayer.getXPos() + zPlayer.getWidth() + PAINTING_OFFSET, zPlayer.getYPos()+40, 
+						zPlayer.getCoords()[0], zPlayer.getCoords()[1], zPlayer.getCoords()[2], zPlayer.getCoords()[3], null);
 			g.setColor(Color.BLACK);
 			double pTime=(int)(zTime*100);
 			double pTime2=pTime/100;
@@ -85,7 +84,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * bekommt alle wichtigen Variablen vom Controller und übernimmt sie für eigene Klassenvariablen
+	 * bekommt alle wichtigen Variablen vom Controller und Ã¼bernimmt sie fÃ¼r eigene Klassenvariablen
 	 * @param pPlayer
 	 * @param pBackground
 	 * @param pDoor
