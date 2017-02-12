@@ -42,7 +42,7 @@ public class GameController implements KeyListener{
 	private double zTime;
 	
 	/**
-	 * erstellt den Controller für die Level
+	 * erstellt den Controller fÃ¼r die Level
 	 */
 	public GameController(WindowView view)
 	{
@@ -51,7 +51,7 @@ public class GameController implements KeyListener{
 		hLevels=new Levels();
 		hBackground=hLevels.getBackground(zLevelNummer);
 		hFelder=hLevels.getLevel(zLevelNummer, zVersion);
-		hPlayer=new PlayerModel(hLevels.getPlayerPosition(zLevelNummer)[0]*zSize,hLevels.getPlayerPosition(zLevelNummer)[1]*zSize,zSize,zSize);
+		hPlayer=new PlayerModel(hLevels.getPlayerPosition(zLevelNummer)[0]*zSize,hLevels.getPlayerPosition(zLevelNummer)[1]*zSize,14,40);
 		hPController=new PlayerController(hPlayer,hFelder);
 		hView.addKeyListener(hPController);
 		zDoor=hLevels.getDoor(zLevelNummer,zVersion);
@@ -123,7 +123,7 @@ public class GameController implements KeyListener{
 	/**
 	 * wird einmal pro Frame aufgerufen: - fragt ab, ob das Spielfeld drehbar ist
 	 * 									 - aktualisiert den PlayerController (Kollisionsabrage des Spielers)
-	 * 									 - fragt ab, ob ein Schlüssel eingesammt wurde und ändert dementprechend die Plattformen
+	 * 									 - fragt ab, ob ein SchlÃ¼ssel eingesammt wurde und Ã¤ndert dementprechend die Plattformen
 	 * 									 - fragt ab, ob das Level beendet wurde
 	 * 									 - aktualisiert die Zeit
 	 */
@@ -235,7 +235,7 @@ public class GameController implements KeyListener{
 	}
 	
 	/**
-	 * setz das Spielfeld auf den Start des übergebenen Levels zurück
+	 * setz das Spielfeld auf den Start des Ã¼bergebenen Levels zurÃ¼ck
 	 * @param pLevel
 	 */
 	public void resetLevel(int pLevel)
@@ -267,7 +267,7 @@ public class GameController implements KeyListener{
 	}
 	
 	/**
-	 * startet das nächste Level, ausgehend von dem aktuellen Level
+	 * startet das nÃ¤chste Level, ausgehend von dem aktuellen Level
 	 */
 	public void nextLevel()
 	{
@@ -281,7 +281,7 @@ public class GameController implements KeyListener{
 		else
 		{
 			//TODO:
-			//Game Over Funktion, Hausptmenü?
+			//Game Over Funktion, HausptmenÃ¼?
 		}
 	}
 
