@@ -1,12 +1,12 @@
 /**
  * 
  */
-package game;
+package shift;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-//import shift.Feld;
+import shift.Feld;
 
 /**
  * @author Kevin
@@ -20,7 +20,7 @@ public class PlayerController implements KeyListener {
 	
 	private boolean moveDir[] = {false, false, false, true}; //left, right, up, down
 	private boolean zWPressed = false;
-	private int xToObstacle, yToObstacle;
+	private int xToObstacle, yToObstacle, aniCount;
 	private final int TILESIZE = 40;
 	
 	public PlayerController(PlayerModel player, Feld[][] felder) {
@@ -31,12 +31,14 @@ public class PlayerController implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_D) {
-			this.player.setxTargetSpeed(4);
+			this.player.setxTargetSpeed(3);
 			moveDir[1] = true;
+			moveDir[0] = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_A) {
-			this.player.setxTargetSpeed(-4);
+			this.player.setxTargetSpeed(-3);
 			moveDir[0] = true;
+			moveDir[1] = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_W && (!zWPressed)) {
 			zWPressed = true;
@@ -73,7 +75,7 @@ public class PlayerController implements KeyListener {
 
 	/* TODO: 1. Herausfinden wie genau Enums funktionieren in JAVA, damit die Abfrage besser ist.
 	* 		 2. MagicNumbers: 0 (linke Spielfeldgrenze), 600 (rechte Spielfeldgrenze)
-	*		 3. Jump fertig stellen
+	*		 3. D-Button fixen
 	*/
 	
 	private void checkDistanceToObstacle() {
@@ -81,7 +83,7 @@ public class PlayerController implements KeyListener {
 		xToObstacle = 0;
 		yToObstacle = 0;
 		moveDir[3] = true;
-		if(this.player.getJumpHeight() <= 10) moveDir[2] = false;
+		if(this.player.getJumpHeight() <= 5) moveDir[2] = false;
 		
 		if (moveDir[0]) {
 			if (this.player.getXPos() > 0 ) {
@@ -164,7 +166,7 @@ public class PlayerController implements KeyListener {
 		
 		if (yToObstacle == 0) {
 			moveDir[3] = false;
-			this.player.setJc(40);
+			this.player.setJumpHeight(40);
 			this.player.setGrounded(true);
 		}
 	}
@@ -176,6 +178,7 @@ public class PlayerController implements KeyListener {
 	
 	public void updatePlayer() {
 		checkDistanceToObstacle();
-		this.player.move(xToObstacle, yToObstacle);
+		this.player.move(xToObstacle, yToObstacle, aniCount);
+		aniCount++;
 	}
 }
