@@ -1,12 +1,9 @@
-/**
- * 
- */
-package shift;
+
+package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import shift.Feld;
 
 /**
  * @author Kevin

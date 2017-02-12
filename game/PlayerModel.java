@@ -1,4 +1,4 @@
-package shift;
+package game;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -29,7 +29,7 @@ public class PlayerModel {
 		this.width = width;
 		this.height = height;
 		 
-		charImg = new ImageIcon("Shift/shift/images/StickySheet.png").getImage(); // ImageIO.read(new File("Shift/shift/images/Stick-Running.gif"));			
+		charImg = new ImageIcon("Shift/images/StickySheet.png").getImage(); // ImageIO.read(new File("Shift/shift/images/Stick-Running.gif"));			
 	}
 	
 	public void move(int xDist, int yDist, int aniCount) {
