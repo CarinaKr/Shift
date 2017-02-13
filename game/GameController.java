@@ -213,7 +213,7 @@ public class GameController implements KeyListener{
 			}
 		}
 		
-		if(hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+1)||
+		if(hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+1)&&
 				hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+hPlayer.getWidth()-1, hPlayer.getYPos()+hPlayer.getHeight()-1))
 		{
 			nextLevel();
@@ -252,8 +252,18 @@ public class GameController implements KeyListener{
 	 */
 	public void resetLevel(int pLevel)
 	{
-		zVersion=0;
 		hBackground=hLevels.getBackground(pLevel);
+		if(zVersion==1)
+		{
+			double pRotation = Math.toRadians (180);
+			AffineTransform tx = AffineTransform.getRotateInstance(pRotation, zDrehpunktX, zDrehpunktY);		
+			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+			for(int i=0;i<hBackground.length;i++)
+			{
+				hBackground[i] = op.filter(hBackground[i], null);
+			}
+		}
+		zVersion=0;
 		hFelder=hLevels.getLevel(pLevel, zVersion);
 		hPlayer.setPosition(hLevels.getPlayerPosition(pLevel)[0]*zSize,hLevels.getPlayerPosition(pLevel)[1]*zSize);
 		zDoor=hLevels.getDoor(pLevel,zVersion);
