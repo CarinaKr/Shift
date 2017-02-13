@@ -15,7 +15,7 @@ public class Levels {
 	
 	private int zSize=40;
 	private Feld[][] hLevel1Black,hLevel1White,hLevel2Black,hLevel2White;
-	private BufferedImage zLevel1,zLevel2;
+	private BufferedImage[] zLevel1,zLevel2;
 	private int[][] zPlayerPosition={{0,5},{14,6}}; //14,6
 	/**
 	 * int[Level][X/Y]
@@ -89,9 +89,15 @@ public class Levels {
 	 */
 	public Levels()
 	{
+		zLevel1=new BufferedImage[3];
+		zLevel2=new BufferedImage[3];
 		try {
-			zLevel1=ImageIO.read(new File("Shift/images/Level1.png"));
-			zLevel2=ImageIO.read(new File("Shift/images/Level2.png")); 
+			zLevel1[0]=ImageIO.read(new File("Shift/images/Level1.png"));
+			zLevel2[0]=ImageIO.read(new File("Shift/images/Level2.png")); 
+			zLevel1[1]=ImageIO.read(new File("Shift/images/Level1Rot.png"));
+			zLevel2[1]=ImageIO.read(new File("Shift/images/Level2Rot.png")); 
+			zLevel1[2]=ImageIO.read(new File("Shift/images/Level1Blau.png"));
+			zLevel2[2]=ImageIO.read(new File("Shift/images/Level2Blau.png")); 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -278,7 +284,7 @@ public class Levels {
 	 * @param pLevel
 	 * @return BufferedImage
 	 */
-	public BufferedImage getBackground(int pLevel)
+	public BufferedImage[] getBackground(int pLevel)
 	{
 		if(pLevel==1)
 		{return zLevel1;}

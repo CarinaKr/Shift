@@ -34,6 +34,9 @@ public class WindowController {
 		bar.getRestart().addActionListener(e->{
 			gameController.resetLevel(gameController.getLevel());
 		});
+		bar.getColor().addActionListener(e->{
+			gameController.newColor();
+		});
 	}
 	
 	public void setTime(double pTime)

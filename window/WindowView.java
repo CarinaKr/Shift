@@ -46,9 +46,9 @@ public class WindowView extends JFrame{
 	}
 
 	
-	public void update(PlayerModel zPlayer,BufferedImage zBackground,int[] pDoor,int[][] pKey,int[][][] pPlatform,int[] pLage,int pKeyNumbers,int[][] pSpikes,double pTime)
+	public void update(PlayerModel zPlayer,BufferedImage zBackground,int[] pDoor,int[][] pKey,int[][][] pPlatform,int[] pLage,int pKeyNumbers,int[][] pSpikes,int pFarbe)
 	{
-		hPanel.update(zPlayer,zBackground,pDoor,pKey,pPlatform,pLage,pKeyNumbers,pSpikes,pTime);
+		hPanel.update(zPlayer,zBackground,pDoor,pKey,pPlatform,pLage,pKeyNumbers,pSpikes,pFarbe);
 		hPanel.repaint();	
 	}
 	

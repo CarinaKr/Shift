@@ -13,7 +13,7 @@ public class PlayerModel {
 	
 	private int xPos, yPos, width, height;
 	private int[] coords = {26, 0, 52, 45}; //SourceX1, SourceY1, SourceX2, SourceY2
-	private Image charImg;
+	private Image[] charImg;
 	
 	private float xSpeed,ySpeed;
 	private int xTargetSpeed = 0;
@@ -28,8 +28,11 @@ public class PlayerModel {
 		this.yPos = yPos;
 		this.width = width;
 		this.height = height;
-		 
-		charImg = new ImageIcon("Shift/images/StickySheet.png").getImage(); // ImageIO.read(new File("Shift/shift/images/Stick-Running.gif"));			
+		
+		charImg=new Image[3];
+		charImg[0] = new ImageIcon("Shift/images/StickySheet.png").getImage(); // ImageIO.read(new File("Shift/shift/images/Stick-Running.gif"));			
+		charImg[1] = new ImageIcon("Shift/images/StickySheetRot.png").getImage();
+		charImg[2] = new ImageIcon("Shift/images/StickySheetBlau.png").getImage();
 	}
 	
 	public void move(int xDist, int yDist, int aniCount) {
@@ -115,7 +118,7 @@ public class PlayerModel {
 		return jumpHeight;
 	}
 
-	public Image getCharImg() {
+	public Image[] getCharImg() {
 		return charImg;
 	}
 	

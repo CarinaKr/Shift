@@ -90,6 +90,11 @@ public class MenuBarView extends JMenuBar{
 		return restart;
 	}
 	
+	public JMenuItem getColor()
+	{
+		return color;
+	}
+	
 	public void setTime(double pTime)
 	{
 		currentTime.setText(""+pTime);

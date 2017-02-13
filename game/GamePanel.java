@@ -23,8 +23,9 @@ public class GamePanel extends JPanel{
 	private int[][] zKey,zSpikes;
 	private int[][][] zPlatform;
 	private int zKeyNumbers;
-	private Image zDoorImage,zKeyImage,zPlatformImage,zSpikeImage,zCharIMG;
-	private double zTime;
+	private Image[] zDoorImage,zKeyImage,zPlatformImage;
+	private Image zCharIMG;
+	private int zFarbe;
 	
 	private int zSize=40;
 	private final int PAINTING_OFFSET = 6;
@@ -34,11 +35,20 @@ public class GamePanel extends JPanel{
 	 */
 	public GamePanel()
 	{
+		zDoorImage=new Image[3];
+		zKeyImage=new Image[3];
+		zPlatformImage=new Image[3];
 		try {
-			zDoorImage=ImageIO.read(new File("Shift/images/Exit.png"));
-			zKeyImage=ImageIO.read(new File("Shift/images/Key.png"));
-			zPlatformImage=ImageIO.read(new File("Shift/images/Platform.png"));
-			zSpikeImage=ImageIO.read(new File("Shift/images/Spikes.png"));
+			zDoorImage[0]=ImageIO.read(new File("Shift/images/Exit.png"));
+			zKeyImage[0]=ImageIO.read(new File("Shift/images/Key.png"));
+			zPlatformImage[0]=ImageIO.read(new File("Shift/images/Platform.png"));
+			zDoorImage[1]=ImageIO.read(new File("Shift/images/ExitRot.png"));
+			zKeyImage[1]=ImageIO.read(new File("Shift/images/KeyRot.png"));
+			zPlatformImage[1]=ImageIO.read(new File("Shift/images/PlatformRot.png"));
+			zDoorImage[2]=ImageIO.read(new File("Shift/images/ExitBlau.png"));
+			zKeyImage[2]=ImageIO.read(new File("Shift/images/KeyBlau.png"));
+			zPlatformImage[2]=ImageIO.read(new File("Shift/images/PlatformBlau.png"));
+			//zSpikeImage=ImageIO.read(new File("Shift/images/Spikes.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,15 +67,15 @@ public class GamePanel extends JPanel{
 		if(zBackground!=null&&zPlayer!=null)
 		{
 			g.drawImage(zBackground, 0, 0 ,this);
-			g.drawImage(zDoorImage,zDoor[0]*zSize,zDoor[1]*zSize, null);
+			g.drawImage(zDoorImage[zFarbe],zDoor[0]*zSize,zDoor[1]*zSize, null);
 			for(int i=0;i<zKeyNumbers;i++)
 			{
 				if(zLage[i]==0)
-				{g.drawImage(zKeyImage, zKey[i][0]*zSize, zKey[i][1]*zSize, null);}
+				{g.drawImage(zKeyImage[zFarbe], zKey[i][0]*zSize, zKey[i][1]*zSize, null);}
 				
 				for(int j=0;j<zPlatform[i].length;j++)
 				{
-					g.drawImage(zPlatformImage,zPlatform[i][j][0]*zSize,zPlatform[i][j][1]*zSize,null);
+					g.drawImage(zPlatformImage[zFarbe],zPlatform[i][j][0]*zSize,zPlatform[i][j][1]*zSize,null);
 				}
 			}
 //			for(int i=0;i<zSpikes.length;i++)
@@ -74,7 +84,7 @@ public class GamePanel extends JPanel{
 //				g.fillRect(zSpikes[i][0]*zSize,zSpikes[i][1]*zSize,zSize,zSize);
 //			}
 		
-			g.drawImage(zPlayer.getCharImg(), zPlayer.getXPos()-PAINTING_OFFSET, zPlayer.getYPos(), zPlayer.getXPos() + zPlayer.getWidth() + PAINTING_OFFSET, zPlayer.getYPos()+40, 
+			g.drawImage(zCharIMG, zPlayer.getXPos()-PAINTING_OFFSET, zPlayer.getYPos(), zPlayer.getXPos() + zPlayer.getWidth() + PAINTING_OFFSET, zPlayer.getYPos()+40, 
 						zPlayer.getCoords()[0], zPlayer.getCoords()[1], zPlayer.getCoords()[2], zPlayer.getCoords()[3], null);
 //			g.setColor(Color.BLACK);
 //			double pTime=(int)(zTime*100);
@@ -96,10 +106,11 @@ public class GamePanel extends JPanel{
 	 * @param pSpikes
 	 * @param pTime
 	 */
-	public void update(PlayerModel pPlayer,Image pBackground,int[] pDoor,int[][] pKey,int[][][] pPlatform,int[] pLage,int pKeyNumbers,int[][] pSpikes,double pTime)
+	public void update(PlayerModel pPlayer,Image pBackground,int[] pDoor,int[][] pKey,int[][][] pPlatform,int[] pLage,int pKeyNumbers,int[][] pSpikes,int pFarbe)
 	{
 		zPlayer=pPlayer;
-		zCharIMG=pPlayer.getCharImg();
+		zFarbe=pFarbe;
+		zCharIMG=pPlayer.getCharImg()[zFarbe];
 		zBackground=pBackground;
 		zDoor=pDoor;
 		zKey=pKey;
@@ -107,6 +118,5 @@ public class GamePanel extends JPanel{
 		zLage=pLage;
 		zKeyNumbers=pKeyNumbers;
 		zSpikes=pSpikes;
-		zTime=pTime;
 	}
 }

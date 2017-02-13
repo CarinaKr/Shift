@@ -23,7 +23,8 @@ public class GameController implements KeyListener{
 	private Feld[][] hFelder;
 	private PlayerModel hPlayer;
 	private PlayerController hPController;
-	private BufferedImage hBackground,hBackgroundTurn;
+	private BufferedImage[] hBackground;
+	private BufferedImage hBackgroundTurn;
 	private Timer hTimer, hTimerTurn;
 	
 	private int[] zDoor;
@@ -34,6 +35,7 @@ public class GameController implements KeyListener{
 	
 	private int zLevelNummer=1;
 	private int zVersion=0;
+	private int zFarbe=0;
 	private int zSize=40;
 	private boolean zDownFree,zUpFree,zLeftFree,zRightFree;
 	private boolean zLeftKey,zRightKey;
@@ -75,8 +77,8 @@ public class GameController implements KeyListener{
 		zShift=false;
 		hTimer.stop();
 		hTimerTurn.start();
-		zDrehpunktX = hBackground.getWidth(null) / 2;
-		zDrehpunktY = hBackground.getHeight(null) / 2;
+		zDrehpunktX = hBackground[zFarbe].getWidth(null) / 2;
+		zDrehpunktY = hBackground[zFarbe].getHeight(null) / 2;
 		zVersion=(zVersion+1)%2;
 		hFelder=hLevels.getLevel(zLevelNummer,zVersion);
 		hPlayer.setPosition((15*zSize-hPlayer.getXPos())-hPlayer.getWidth(), (15*zSize-hPlayer.getYPos())-(2*hPlayer.getHeight()));
@@ -106,8 +108,8 @@ public class GameController implements KeyListener{
 			double pRotation = Math.toRadians (zTurn);
 			AffineTransform tx = AffineTransform.getRotateInstance(pRotation, zDrehpunktX, zDrehpunktY);		
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-			hBackgroundTurn = op.filter(hBackground, null);
-			hView.update(hPlayer, hBackgroundTurn,zDoor,zKey,zPlatform,zLage,hLevels.getKeyNumbers(zLevelNummer),zSpikes,zTime);
+			hBackgroundTurn = op.filter(hBackground[zFarbe], null);
+			hView.update(hPlayer, hBackgroundTurn,zDoor,zKey,zPlatform,zLage,hLevels.getKeyNumbers(zLevelNummer),zSpikes,zFarbe);
 			zTurn+=10;
 		}
 		else if(zTurn==180)
@@ -116,7 +118,10 @@ public class GameController implements KeyListener{
 			double pRotation = Math.toRadians (180);
 			AffineTransform tx = AffineTransform.getRotateInstance(pRotation, zDrehpunktX, zDrehpunktY);		
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-			hBackground = op.filter(hBackground, null);
+			for(int i=0;i<hBackground.length;i++)
+			{
+				hBackground[i] = op.filter(hBackground[i], null);
+			}
 			hTimerTurn.stop();
 			hTimer.start();
 			zShift=true;
@@ -238,7 +243,7 @@ public class GameController implements KeyListener{
 		double pTime=(int)(zTime*10);
 		double pTime2=pTime/10;
 		hWindowController.setTime(pTime2);
-		hView.update(hPlayer, hBackground,zDoor,zKey,zPlatform,zLage,hLevels.getKeyNumbers(zLevelNummer),zSpikes,zTime);
+		hView.update(hPlayer, hBackground[zFarbe],zDoor,zKey,zPlatform,zLage,hLevels.getKeyNumbers(zLevelNummer),zSpikes,zFarbe);
 	}
 	
 	/**
@@ -352,5 +357,14 @@ public class GameController implements KeyListener{
 	public int getLevel()
 	{
 		return zLevelNummer;
+	}
+	
+	public void newColor()
+	{
+		zFarbe++;
+		if(zFarbe>=3)
+		{
+			zFarbe=0;
+		}
 	}
 }
