@@ -37,7 +37,9 @@ public class WindowController {
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
 		
+		
 		this.view = new WindowView(bar);
+		view.setTitle("Shift");
 		this.hPanel = view.getGamePanel();
 		this.mPanel = view.getMenuPanel();
 		this.userIcon = new ImageIcon("Shift/images/userIcon.png");
