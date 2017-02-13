@@ -18,6 +18,7 @@ public class WindowView extends JFrame{
 	
 	private GamePanel hPanel;
 	private MainMenuPanel mPanel;
+	private HighscoresPanel sPanel;
 	
 	private JButton mStartNewGame;
 	private JButton mLogin;
@@ -28,6 +29,7 @@ public class WindowView extends JFrame{
 	public WindowView(MenuBarView bar){
 		
 		mPanel = new MainMenuPanel();
+		
 		
 		this.mStartNewGame = mPanel.getStartNewGame();
 		this.mLogin = mPanel.getLogin();
@@ -57,7 +59,12 @@ public class WindowView extends JFrame{
 	}
 	
 	public void setGamePanel(GamePanel newPanel){
-		this.remove(mPanel);
+		if(mPanel!=null){
+			this.remove(mPanel);
+		}
+		if(sPanel!=null){	
+			this.remove(sPanel);
+		}
 		this.hPanel = newPanel;
 		add(this.hPanel, BorderLayout.CENTER);
 		this.setVisible(true);
@@ -65,8 +72,31 @@ public class WindowView extends JFrame{
 		
 	}
 	
+	public void setHighscoresPanel(HighscoresPanel newPanel){
+		if(mPanel!=null){
+			this.remove(mPanel);
+			mPanel.setVisible(false);
+		}
+		
+		if(hPanel!=null){	
+			this.remove(hPanel);
+			hPanel.setVisible(false);
+		}
+		this.sPanel = newPanel;
+		add(sPanel, BorderLayout.CENTER);
+		this.setVisible(true);
+		
+	}
+	
 	public void setMenuPanel(MainMenuPanel newPanel){
-		this.remove(hPanel);
+		if(hPanel!=null){	
+			this.remove(hPanel);
+			hPanel.setVisible(false);
+		}
+		if(sPanel!=null){
+			this.remove(sPanel);
+			sPanel.setVisible(false);
+		}
 		this.mPanel = newPanel;
 		add(mPanel, BorderLayout.CENTER);
 		this.setVisible(true);
@@ -93,5 +123,9 @@ public class WindowView extends JFrame{
 	public MenuBarView getBar() {
 		return bar;
 	}
+	public HighscoresPanel getHighscoresPanel() {
+		return sPanel;
+	}
+	
 
 }

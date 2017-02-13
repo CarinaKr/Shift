@@ -23,7 +23,7 @@ import javax.swing.border.Border;
 
 import game.*;
 
-public class MainMenuPanel extends GamePanel{
+public class MainMenuPanel extends JPanel{
 	
 	private JButton startNewGame;
 	private JButton login;
@@ -40,6 +40,7 @@ public class MainMenuPanel extends GamePanel{
 	public MainMenuPanel(){
 		
 		setLayout(new BorderLayout());
+		this.setBackground(Color.white);
 		
 		try{
 			this.backgroundGraphics = ImageIO.read(new File("Shift/images/background.png"));

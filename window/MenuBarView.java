@@ -14,22 +14,22 @@ import account.Account;
 
 public class MenuBarView extends JMenuBar{
 	
-	private Account player;
+	private Account playerAccount;
 	private String accountName;
 	
-	private JMenu account;
+	private JMenu accountMenu;
 	private JMenu one;
 	private JMenu options;
 	
 	private JLabel currentTime;
 
 	private JMenuItem restart,load,save,main,exit;
-	private JMenuItem viewScore,changePassword,logout;
+	private JMenuItem viewScore,changeUserName,changePassword,logout;
 	private JMenuItem language,color,controls;
 	
 	public MenuBarView(Account player){
 		
-		this.player = player;
+		this.playerAccount = player;
 		this.accountName = player.getName();
 		
 		this.one =	new JMenu("Game");
@@ -45,13 +45,15 @@ public class MenuBarView extends JMenuBar{
 		one.add(exit);
 		
 		
-		this.account = new JMenu(accountName);
-		 viewScore = new JMenuItem("Show score");
-		 changePassword = new JMenuItem("Change password");
-		 logout = new JMenuItem("Logout");
-		account.add(viewScore);
-		account.add(changePassword);
-		account.add(logout);
+		this.accountMenu = new JMenu(accountName);
+		viewScore = new JMenuItem("Show score");
+		changeUserName = new JMenuItem("Change Username");
+		changePassword = new JMenuItem("Change password");
+		logout = new JMenuItem("Logout");
+		accountMenu.add(viewScore);
+		accountMenu.add(changeUserName);
+		accountMenu.add(changePassword);
+		accountMenu.add(logout);
 		
 		this.options = new JMenu("Options");
 		 language = new JMenuItem("Language");
@@ -62,11 +64,11 @@ public class MenuBarView extends JMenuBar{
 		options.add(controls);
 		
 		
-		this.currentTime = new JLabel(String.valueOf(this.player.getTime()));
+		this.currentTime = new JLabel(String.valueOf(this.playerAccount.getTime()));
 		
 		
 		this.add(one);
-		this.add(account);
+		this.add(accountMenu);
 		this.add(options);
 		this.add(Box.createHorizontalGlue());
 		this.add(currentTime);
@@ -74,11 +76,11 @@ public class MenuBarView extends JMenuBar{
 	}
 	
 	public Account getPlayer(){
-		return this.player;
+		return this.playerAccount;
 	}
 	
-	public JMenu getAccount(){
-		return this.account;
+	public JMenu getAccountMenu(){
+		return this.accountMenu;
 	}
 	
 	public JMenu getGame(){
@@ -97,9 +99,34 @@ public class MenuBarView extends JMenuBar{
 	
 	public void setTime(double pTime)
 	{
-		currentTime.setText(""+pTime);
+		this.playerAccount.setTime(pTime);
+		currentTime.setText(String.valueOf(playerAccount.getTime()));
 	}
 	
+	public void setUserName(String newName){
+		this.playerAccount.setName(newName);
+		this.accountMenu.setText(this.playerAccount.getName());
+	}
+	
+	public JMenuItem getChangeUserName() {
+		return changeUserName;
+	}
+	
+	public JMenuItem getChangePassword() {
+		return changePassword;
+	}
+	
+	public Account getPlayerAccount() {
+		return playerAccount;
+	}
+	
+	public JMenuItem getMain() {
+		return main;
+	}
+	
+	public JMenuItem getViewScore() {
+		return viewScore;
+	}
 	
 
 }

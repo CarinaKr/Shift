@@ -287,4 +287,8 @@ public class GameController implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void stopTimer(){
+		hTimer.stop();
+	}
 }
