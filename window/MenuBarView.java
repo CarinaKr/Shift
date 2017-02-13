@@ -1,4 +1,4 @@
-package menu;
+package window;
 
 import java.awt.ComponentOrientation;
 import java.awt.MenuItem;
@@ -22,7 +22,10 @@ public class MenuBarView extends JMenuBar{
 	private JMenu options;
 	
 	private JLabel currentTime;
-	
+
+	private JMenuItem restart,load,save,main,exit;
+	private JMenuItem viewScore,changePassword,logout;
+	private JMenuItem language,color,controls;
 	
 	public MenuBarView(Account player){
 		
@@ -30,32 +33,32 @@ public class MenuBarView extends JMenuBar{
 		this.accountName = player.getName();
 		
 		this.one =	new JMenu("Game");
-		JMenuItem restart = new JMenuItem("Restart current level");
+		restart = new JMenuItem("Restart current level");
 		one.add(restart);
-		JMenuItem load = new JMenuItem("Load");
+		load = new JMenuItem("Load");
 		one.add(load);
-		JMenuItem save = new JMenuItem("Save");
+		save = new JMenuItem("Save");
 		one.add(save);
-		JMenuItem main = new JMenuItem("Main Menu");
+		main = new JMenuItem("Main Menu");
 		one.add(main);
-		JMenuItem exit = new JMenuItem("Exit");
+		exit = new JMenuItem("Exit");
 		one.add(exit);
 		
 		
 		this.account = new JMenu(accountName);
-		JMenuItem viewScore = new JMenuItem("Show score");
-		JMenuItem changePassword = new JMenuItem("Change password");
-		JMenuItem logout = new JMenuItem("Logout");
+		 viewScore = new JMenuItem("Show score");
+		 changePassword = new JMenuItem("Change password");
+		 logout = new JMenuItem("Logout");
 		account.add(viewScore);
 		account.add(changePassword);
 		account.add(logout);
 		
 		this.options = new JMenu("Options");
-		JMenuItem language = new JMenuItem("Language");
+		 language = new JMenuItem("Language");
 		options.add(language);
-		JMenuItem color = new JMenuItem("Color");
+		 color = new JMenuItem("Color");
 		options.add(color);
-		JMenuItem controls = new JMenuItem("Controls");
+		 controls = new JMenuItem("Controls");
 		options.add(controls);
 		
 		
@@ -80,6 +83,16 @@ public class MenuBarView extends JMenuBar{
 	
 	public JMenu getGame(){
 		return this.one;
+	}
+	
+	public JMenuItem getRestart()
+	{
+		return restart;
+	}
+	
+	public void setTime(double pTime)
+	{
+		currentTime.setText(""+pTime);
 	}
 	
 	

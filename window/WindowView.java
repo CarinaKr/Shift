@@ -25,7 +25,7 @@ public class WindowView extends JFrame{
 	private MenuBarView bar;
 	
 	
-	public WindowView(){
+	public WindowView(MenuBarView bar){
 		
 		mPanel = new MainMenuPanel();
 		
@@ -34,7 +34,8 @@ public class WindowView extends JFrame{
 		this.mHighscores = mPanel.getViewScores();
 		
 		setLayout(new BorderLayout());
-		bar = new MenuBarView(new Account("Test","Test"));
+		//bar = new MenuBarView(new Account("Test","Test"));
+		this.bar=bar;
 		add(bar, BorderLayout.NORTH);
 		add(mPanel, BorderLayout.CENTER);
 		

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
+import window.WindowController;
 import window.WindowView;
 
 /**
@@ -17,6 +18,7 @@ import window.WindowView;
 public class GameController implements KeyListener{
 	
 	private WindowView hView;
+	private WindowController hWindowController;
 	private Levels hLevels;
 	private Feld[][] hFelder;
 	private PlayerModel hPlayer;
@@ -44,9 +46,10 @@ public class GameController implements KeyListener{
 	/**
 	 * erstellt den Controller für die Level
 	 */
-	public GameController(WindowView view)
+	public GameController(WindowView view,WindowController winController)
 	{
 		hView=view;
+		hWindowController=winController;
 		hView.addKeyListener(this);
 		hLevels=new Levels();
 		hBackground=hLevels.getBackground(zLevelNummer);
@@ -76,7 +79,7 @@ public class GameController implements KeyListener{
 		zDrehpunktY = hBackground.getHeight(null) / 2;
 		zVersion=(zVersion+1)%2;
 		hFelder=hLevels.getLevel(zLevelNummer,zVersion);
-		hPlayer.setPosition((15*zSize-hPlayer.getXPos())-zSize, (15*zSize-hPlayer.getYPos())-(2*zSize));
+		hPlayer.setPosition((15*zSize-hPlayer.getXPos())-hPlayer.getWidth(), (15*zSize-hPlayer.getYPos())-(2*hPlayer.getHeight()));
 		zDoor=hLevels.getDoor(zLevelNummer,zVersion);
 		zKey[0]=hLevels.getKey1(zLevelNummer,zVersion);
 		zKey[1]=hLevels.getKey2(zLevelNummer,zVersion);
@@ -135,9 +138,9 @@ public class GameController implements KeyListener{
 		zRightFree=true;
 		zShift=false;
 		int a,b,c;
-		a=hPlayer.getXPos()/40;
-		b=(hPlayer.getYPos()+40)/40;
-		c=(hPlayer.getXPos()+39)/40;
+		a=hPlayer.getXPos()/zSize;
+		b=(hPlayer.getYPos()+hPlayer.getHeight())/zSize;
+		c=(hPlayer.getXPos()+hPlayer.getWidth()-1)/zSize;
 		try {
 			if(hFelder[a][b].isAccessable()==false&&hFelder[c][b].isAccessable()==false)
 			{zShift=true;}
@@ -195,7 +198,7 @@ public class GameController implements KeyListener{
 		for(int i=0;i<hLevels.getKeyNumbers(zLevelNummer);i++)
 		{
 			if(hFelder[zKey[i][0]][zKey[i][1]].isKey()&&(hFelder[zKey[i][0]][zKey[i][1]].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+1)|| //obere linke Ecke
-				hFelder[zKey[i][0]][zKey[i][1]].contains(hPlayer.getXPos()+zSize-1, hPlayer.getYPos()+zSize-1)))
+				hFelder[zKey[i][0]][zKey[i][1]].contains(hPlayer.getXPos()+hPlayer.getWidth()-1, hPlayer.getYPos()+hPlayer.getHeight()-1)))
 			{
 				hFelder[zKey[i][0]][zKey[i][1]].setKey(false);
 				zLage[i]=1;
@@ -205,15 +208,16 @@ public class GameController implements KeyListener{
 			}
 		}
 		
-		if(hFelder[zDoor[0]][zDoor[1]].getXPos()==hPlayer.getXPos()&&hFelder[zDoor[0]][zDoor[1]].getYPos()==hPlayer.getYPos())
+		if(hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+1)||
+				hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+hPlayer.getWidth()-1, hPlayer.getYPos()+hPlayer.getHeight()-1))
 		{
 			nextLevel();
 		}
 		
 		for(int i=0;i<zSpikes.length;i++)
 		{
-			if(hFelder[zSpikes[i][0]][zSpikes[i][1]].contains(hPlayer.getXPos()-1, hPlayer.getYPos()+zSize)||
-					hFelder[zSpikes[i][0]][zSpikes[i][1]].contains(hPlayer.getXPos()+zSize-1, hPlayer.getYPos()+zSize))
+			if(hFelder[zSpikes[i][0]][zSpikes[i][1]].contains(hPlayer.getXPos()-1, hPlayer.getYPos()+hPlayer.getHeight())||
+					hFelder[zSpikes[i][0]][zSpikes[i][1]].contains(hPlayer.getXPos()+hPlayer.getWidth()-1, hPlayer.getYPos()+hPlayer.getHeight()))
 			{
 				resetLevel(zLevelNummer);
 			}
@@ -231,6 +235,9 @@ public class GameController implements KeyListener{
 //		if(zRightKey&&zRightFree)
 //		{hPlayer.moveX(1);}
 		zTime+=0.01;
+		double pTime=(int)(zTime*10);
+		double pTime2=pTime/10;
+		hWindowController.setTime(pTime2);
 		hView.update(hPlayer, hBackground,zDoor,zKey,zPlatform,zLage,hLevels.getKeyNumbers(zLevelNummer),zSpikes,zTime);
 	}
 	
@@ -272,13 +279,13 @@ public class GameController implements KeyListener{
 	public void nextLevel()
 	{
 		hTimer.stop();
-		zLevelNummer++;
-		if(zLevelNummer<=2)
+		if(zLevelNummer<2)
 		{
+			zLevelNummer++;
 			resetLevel(zLevelNummer);
 			hTimer.start();
 		}
-		else
+		else if(zLevelNummer==2)
 		{
 			//TODO:
 			//Game Over Funktion, Hausptmenü?
@@ -332,7 +339,7 @@ public class GameController implements KeyListener{
 		
 		if(arg0.getKeyCode()==16)//shift
 		{	System.out.println("shift");
-			if(hPlayer.getYPos()+zSize+1<15*zSize&&zJump==false&&zShift)
+			if(hPlayer.getYPos()+hPlayer.getHeight()+1<15*zSize&&zJump==false&&zShift)
 			{this.shift();}
 		}
 	}
@@ -340,5 +347,10 @@ public class GameController implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		
+	}
+	
+	public int getLevel()
+	{
+		return zLevelNummer;
 	}
 }

@@ -76,11 +76,11 @@ public class GamePanel extends JPanel{
 		
 			g.drawImage(zPlayer.getCharImg(), zPlayer.getXPos()-PAINTING_OFFSET, zPlayer.getYPos(), zPlayer.getXPos() + zPlayer.getWidth() + PAINTING_OFFSET, zPlayer.getYPos()+40, 
 						zPlayer.getCoords()[0], zPlayer.getCoords()[1], zPlayer.getCoords()[2], zPlayer.getCoords()[3], null);
-			g.setColor(Color.BLACK);
-			double pTime=(int)(zTime*100);
-			double pTime2=pTime/100;
-			String pTimeString=""+pTime2;
-			g.drawChars(pTimeString.toCharArray(), 0, pTimeString.length(), 14*zSize, zSize/2);
+//			g.setColor(Color.BLACK);
+//			double pTime=(int)(zTime*100);
+//			double pTime2=pTime/100;
+//			String pTimeString=""+pTime2;
+//			g.drawChars(pTimeString.toCharArray(), 0, pTimeString.length(), 14*zSize, zSize/2);
 		}
 	}
 	
