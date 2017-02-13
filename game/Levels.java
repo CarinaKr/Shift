@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 /**
  * @author Carina
  *
- *in dieser Klasse werden alle wichtigen Variablen für alle Level erstellt und gespeichert
+ *in this class all the important variables for all levels are initialized and saved
  */
 public class Levels {
 	
@@ -50,42 +50,42 @@ public class Levels {
 	 */
 	private int[][] zKey3White={{},{14-0,14-12}};	//Level, X/Y
 	/**
-	 * int[Level][Lage][Platformteil][X/Y]
+	 * int[Level][Lage][Partnumber][X/Y]
 	 */
 	private int[][][][] zPlatform1Black={{{{9,12},{9,13},{9,14}},{{6,12},{7,12},{8,12}}},{{{6,2},{7,2},{8,2}},{{9,2},{10,2},{11,2}}}};  //Level, Lage,  Platformteil, X/Y
 	/**
-	 * int[Level][Lage][Platformteil][X/Y]
+	 * int[Level][Lage][Partnumber][X/Y]
 	 */
 	private int[][][][] zPlatform1White={{{{14-9,14-12},{14-9,14-13},{14-9,14-14}},{{14-6,14-12},{14-7,14-12},{14-8,14-12}}},{{{14-6,14-2},{14-7,14-2},{14-8,14-2}},{{14-9,14-2},{14-10,14-2},{14-11,14-2}}}};  //Level, Lage,  Platformteil, X/Y
 	/**
-	 * int[Level][Lage][Platformteil][X/Y]
+	 * int[Level][Lage][Partnumber][X/Y]
 	 */
 	private int[][][][] zPlatform2Black={{{{9,12},{9,13},{9,14}},{{6,12},{7,12},{8,12}}},{{{0,6},{1,7},{2,7}},{{1,5},{2,6},{3,6}}}};  //Level, Lage,  Platformteil, X/Y
 	/**
-	 * int[Level][Lage][Platformteil][X/Y]
+	 * int[Level][Lage][Partnumber][X/Y]
 	 */
 	private int[][][][] zPlatform2White={{{{14-9,14-12},{14-9,14-13},{14-9,14-14}},{{14-6,14-12},{14-7,14-12},{14-8,14-12}}},{{{14-0,14-6},{14-1,14-7},{14-2,14-7}},{{14-1,14-5},{14-2,14-6},{14-3,14-6}}}};  //Level, Lage,  Platformteil, X/Y
 	/**
-	 * int[Level][Lage][Platformteil][X/Y]
+	 * int[Level][Lage][Partnumber][X/Y]
 	 */
 	private int[][][][] zPlatform3Black={{{{9,12},{9,13},{9,14}},{{6,12},{7,12},{8,12}}},{{{8,10},{8,11},{8,12}},{{8,9},{8,8},{8,7}}}};  //Level, Lage,  Platformteil, X/Y
 	/**
-	 * int[Level][Lage][Platformteil][X/Y]
+	 * int[Level][Lage][Partnumber][X/Y]
 	 */
-	private int[][][][] zPlatform3White={{{{14-9,14-12},{14-9,14-13},{14-9,14-14}},{{14-6,14-12},{14-7,14-12},{14-8,14-12}}},{{{14-8,14-10},{14-8,14-11},{14-8,14-12}},{{14-8,14-5},{14-8,14-6},{14-8,14-7}}}};  //Level, Lage,  Platformteil, X/Y
+	private int[][][][] zPlatform3White={{{{14-9,14-12},{14-9,14-13},{14-9,14-14}},{{14-6,14-12},{14-7,14-12},{14-8,14-12}}},{{{14-8,14-10},{14-8,14-11},{14-8,14-12}},{{14-8,14-9},{14-8,14-8},{14-8,14-7}}}};  //Level, Lage,  Platformteil, X/Y
 	private int[] zKeyNumbers={1,3}; //Anzahl der Schlüssel in Level1, in Level2
 	/**
-	 * int[Level][Teilzahl][X/Y]
+	 * int[Level][Partnumber][X/Y]
 	 */
 	private int[][][] zSpikesBlack={{},{{3,0},{9,1},{10,1},{11,1},{12,1},{8,14},{9,14}}};	//Level, Teil, X/Y
 	/**
-	 * int[Level][Teilzahl][X/Y]
+	 * int[Level][Partnumber][X/Y]
 	 */
 	private int[][][] zSpikesWhite={{},{{14-3,14-0},{14-9,14-1},{14-10,14-1},{14-11,14-1},{14-12,14-1},{14-8,14-14},{14-9,14-14}}};	//Level, Teil, X/Y
 	
 	/**
-	 * erstellt die Felder für alle Level entsprechend der zuvor definierten Klassenvariablen und setzt die 
-	 * entsprechenden Werte der einzelnen Felder
+	 * Initializes the fields for all levels corresponding to the variables defined earlier and sets the correct
+	 * values for each field
 	 */
 	public Levels()
 	{
@@ -259,7 +259,7 @@ public class Levels {
 	}
 	
 	/**
-	 * gibt das entsprechende zweidimensionales Array von Feld für das angegeben Level und Version zurück
+	 * returns the right two-dimensional Array for the field, by given level and version
 	 * @param pLevel
 	 * @param pVersion
 	 * @return Feld[][] - [x][y]
@@ -280,7 +280,7 @@ public class Levels {
 	}
 	
 	/**
-	 * gibt das Hingergrundbild für das angegebene Level zurück
+	 * returns the background image for the given level
 	 * @param pLevel
 	 * @return BufferedImage
 	 */
@@ -295,7 +295,7 @@ public class Levels {
 	}
 	
 	/**
-	 * gibt die Startposition des Spielers für das angegebene Level zurück
+	 * returns the starting position of the player for the given level
 	 * @param pLevel
 	 * @return int[] - [0]=x; [1]=y
 	 */
@@ -304,7 +304,7 @@ public class Levels {
 		return zPlayerPosition[pLevel-1];
 	}
 	/**
-	 * gibt die Platform für das angegebene Level, Version, Lage und Nummer an
+	 * returns the platform for the given level, version, orientation and number
 	 * @param pLevel
 	 * @param pVersion
 	 * @param pLage
@@ -338,7 +338,7 @@ public class Levels {
 	}
 
 	/**
-	 * gibt die Position der Tür für das angegebene Level und Lage zurück
+	 * returns the position of the exit for the given level and version
 	 * @param pLevel
 	 * @param pVersion
 	 * @return int[] - [0]=x; [1]=y
@@ -352,7 +352,7 @@ public class Levels {
 		return null;
 	}
 	/**
-	 * gibt die Position des ersten Schlüssel für das angegebene Level und Lage zurück
+	 * returns the position of the first key of the given level and version
 	 * @param pLevel
 	 * @param pVersion
 	 * @return int[] - [0]=x; [1]=y
@@ -366,7 +366,7 @@ public class Levels {
 		return null;
 	}
 	/**
-	 * gibt die Position des zweiten Schlüssel für das angegebene Level und Lage zurück
+	 * returns the position of the second key of the given level and version
 	 * @param pLevel
 	 * @param pVersion
 	 * @return int[] - [0]=x; [1]=y
@@ -380,7 +380,7 @@ public class Levels {
 		return null;
 	}
 	/**
-	 * gibt die Position des dritten Schlüssel für das angegebene Level und Lage zurück
+	 * returns the position of the third key of the given level and version
 	 * @param pLevel
 	 * @param pVersion
 	 * @return int[] - [0]=x; [1]=y
@@ -395,7 +395,7 @@ public class Levels {
 	}
 	
 	/**
-	 * gibt die Anzahl der Schlüssel in dem angegeben Level an
+	 * returns the total number of key in the given level
 	 * @param pLevel
 	 * @return
 	 */
@@ -405,10 +405,10 @@ public class Levels {
 	}
 	
 	/**
-	 * gibt die Position der Spikes für das angegebene Level und Lage zurück
+	 * returns the position of the spikes for the given level and version
 	 * @param pLevel
 	 * @param pVersion
-	 * @return int[][] - [Teilzahl][X/Y]
+	 * @return int[][] - [partnumber][X/Y]
 	 **/
 	public int[][] getSpikes(int pLevel,int pVersion)
 	{
@@ -419,20 +419,8 @@ public class Levels {
 		return null;
 	}
 	
-//	public void setKey1(int[] pKey1, int pLevel)
-//	{
-//		zKey1Black[pLevel]=pKey1;
-//		zKey1White[pLevel][0]=14-pKey1[0];
-//		zKey1White[pLevel][1]=14-pKey1[1];
-//	}
-//	public void setDoor(int[] pDoor, int pLevel)
-//	{
-//		zDoorBlack[pLevel]=pDoor;
-//		zDoorWhite[pLevel][0]=14-pDoor[0];
-//		zDoorWhite[pLevel][1]=14-pDoor[1];
-//	}
 	/**
-	 * setzt die Platform für das angegeben Level, Lage und Nummer
+	 * sets the Platform for the given level, orientation and number
 	 * @param pLevel
 	 * @param pLage
 	 * @param pNummer
@@ -525,6 +513,10 @@ public class Levels {
 		}
 	}
 	
+	/**
+	 * resets the Keys in the given level
+	 * @param pLevel
+	 */
 	public void resetKeys(int pLevel)
 	{
 		if(pLevel==1)
