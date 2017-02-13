@@ -20,6 +20,7 @@ public class PlayerModel {
 	private int yTargetSpeed = 5;
 	private final float ACCELARATION = 0.09f;
 	private final float J_ACC = 0.05f;
+	private final int PAINTING_OFFSET = 6;
 	private boolean isGrounded;
 	private int jumpHeight = 40;
 	
@@ -35,12 +36,12 @@ public class PlayerModel {
 		charImg[2] = new ImageIcon("Shift/images/StickySheetBlau.png").getImage();
 	}
 	
-	public void move(int xDist, int yDist, int aniCount) {
+	public void move(int leftXDist,int rightXDist, int yDist, int aniCount) {
 		xSpeed = ACCELARATION * xTargetSpeed + (1-ACCELARATION) * xSpeed;
 		ySpeed = J_ACC * yTargetSpeed + (1-J_ACC) * ySpeed;
 		
-		if(xDist > 0) {
-			this.xPos += (int) (Math.min((xDist), xSpeed));
+		if(rightXDist > 0) {
+			this.xPos += (int) (Math.min((rightXDist), xSpeed));
 			this.coords[1] = 0;
 			this.coords[3] = 45;
 			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((yDist), ySpeed) == 0 || Math.max((yDist), ySpeed) == 0)) {
@@ -51,8 +52,8 @@ public class PlayerModel {
 				this.coords[2] = 26;
 			}
 		}
-		else if (xDist < 0) {
-			this.xPos += (int) (Math.max((xDist), xSpeed));
+		else if (leftXDist < 0) {
+			this.xPos += (int) (Math.max((leftXDist), xSpeed));
 			this.coords[1] = 56;
 			this.coords[3] = 101;
 			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((yDist), ySpeed) == 0 || Math.max((yDist), ySpeed) == 0)) {
@@ -114,12 +115,20 @@ public class PlayerModel {
 		return isGrounded;
 	}
 	
+	public float getxSpeed() {
+		return xSpeed;
+	}
+	
 	public int getJumpHeight() {
 		return jumpHeight;
 	}
 
 	public Image[] getCharImg() {
 		return charImg;
+	}
+	
+	public int getPAINTING_OFFSET() {
+		return PAINTING_OFFSET;
 	}
 	
 	public int[] getCoords() {
