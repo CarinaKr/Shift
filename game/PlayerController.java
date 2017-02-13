@@ -16,8 +16,8 @@ public class PlayerController implements KeyListener {
 	private Feld[][] felder;
 	
 	private boolean moveDir[] = {false, false, false, true}; //left, right, up, down
-	private boolean zWPressed = false;
-	private int xToObstacle, yToObstacle, aniCount;
+	private boolean wPressed = false;
+	private int leftXToObstacle, rightXToObstacle, yToObstacle, aniCount;
 	private final int TILESIZE = 40;
 	
 	public PlayerController(PlayerModel player, Feld[][] felder) {
@@ -37,8 +37,8 @@ public class PlayerController implements KeyListener {
 			moveDir[0] = true;
 			moveDir[1] = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_W && (!zWPressed)) {
-			zWPressed = true;
+		if (e.getKeyCode() == KeyEvent.VK_W && (!wPressed)) {
+			wPressed = true;
 			if(this.player.getGrounded()) {
 				this.player.setyTargetSpeed(-6);
 				moveDir[2] = true;
@@ -58,7 +58,7 @@ public class PlayerController implements KeyListener {
 			this.player.setxTargetSpeed(0);
 		}
 		if (e.getKeyCode() == KeyEvent.VK_W) {
-			zWPressed = false;
+			wPressed = false;
 			this.player.setyTargetSpeed(8);
 			moveDir[2] = false;
 			moveDir[3] = true;
@@ -77,13 +77,14 @@ public class PlayerController implements KeyListener {
 	
 	private void checkDistanceToObstacle() {
 		int i,j,tmp;
-		xToObstacle = 0;
+		leftXToObstacle = 0;
+		rightXToObstacle = 0;
 		yToObstacle = 0;
 		moveDir[3] = true;
 		if(this.player.getJumpHeight() <= 5) moveDir[2] = false;
 		
-		if (moveDir[0]) {
-			if (this.player.getXPos() > 0 ) {
+		if (moveDir[0] && this.player.getxSpeed() <= 0) {
+			if (this.player.getXPos() - this.player.getPAINTING_OFFSET() > 0 ) {
 				for(int x = 0; x < 2; x++) {
 					tmp = 0;
 					i = (int) (this.player.getXPos()) / TILESIZE;
@@ -98,12 +99,12 @@ public class PlayerController implements KeyListener {
 						}
 					}
 					tmp++;
-					if (x == 0 || (x == 1 && tmp > xToObstacle)) xToObstacle = tmp;
+					if (x == 0 || (x == 1 && tmp > leftXToObstacle)) leftXToObstacle = tmp;
 				}
 			}
 		}
-		else if (moveDir[1]) {
-			if (this.player.getXPos() + this.player.getWidth() < 600) {
+		else if (moveDir[1] && this.player.getxSpeed() >= 0) {
+			if (this.player.getXPos() + this.player.getWidth() + this.player.getPAINTING_OFFSET() < 600) {
 				for (int x = 0; x < 2; x++) {
 					tmp = 0;
 					i = (int) (this.player.getXPos() + this.player.getWidth()) / TILESIZE;
@@ -117,12 +118,13 @@ public class PlayerController implements KeyListener {
 							break;
 						}
 					}
-					if (x == 0 || (x == 1 && tmp < xToObstacle)) xToObstacle = tmp;
+					if (x == 0 || (x == 1 && tmp < rightXToObstacle)) rightXToObstacle = tmp;
 				}
 			}
 		}
 		
 		if (moveDir[2]) {
+			moveDir[3] = false;
 			if (this.player.getYPos() > 0) {
 				for (int x = 0; x < 2; x++) {
 					tmp = 0;
@@ -161,10 +163,16 @@ public class PlayerController implements KeyListener {
 			} 
 		}
 		
-		if (yToObstacle == 0) {
+		if (yToObstacle == 0 && moveDir[3]) {
 			moveDir[3] = false;
 			this.player.setJumpHeight(40);
 			this.player.setGrounded(true);
+		}
+		else if (yToObstacle == 0 && moveDir[2]) {
+			moveDir[2] = false;
+			moveDir[3] = true;
+			this.player.setyTargetSpeed(8);
+			this.player.setJumpHeight(0);
 		}
 	}
 	
@@ -175,7 +183,7 @@ public class PlayerController implements KeyListener {
 	
 	public void updatePlayer() {
 		checkDistanceToObstacle();
-		this.player.move(xToObstacle, yToObstacle, aniCount);
+		this.player.move(leftXToObstacle, rightXToObstacle, yToObstacle, aniCount);
 		aniCount++;
 	}
 }
