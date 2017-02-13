@@ -44,7 +44,7 @@ public class GameController implements KeyListener{
 	private double zTime;
 	
 	/**
-	 * initializes the controller for the level
+	 * erstellt den Controller für die Level
 	 */
 	public GameController(WindowView view,WindowController winController)
 	{
@@ -65,12 +65,10 @@ public class GameController implements KeyListener{
 		hTimerTurn=new Timer(10, e->turn());
 		hTimer=new Timer(10, e->update());
 		hTimer.start();
-		
-		nextLevel();
 	}
 
 	/**
-	 * inverts the playing field and turns it by 180 degrees
+	 * invertieret das Spielfeld und dreht es um 180 Grad
 	 */
 	public void shift()
 	{	
@@ -97,7 +95,7 @@ public class GameController implements KeyListener{
 		hPController.setFelder(hFelder);
 	}
 	/**
-	 * turns the background image by 180 degrees
+	 * dreht das Hintergrundbild um 180 Grad
 	 */
 	public void turn()
 	{
@@ -129,11 +127,11 @@ public class GameController implements KeyListener{
 	}
 	
 	/**
-	 * gets calles once per frame: 	- asks, if the playing field can be shifted
-	 * 								- updates the PlayerController (collision detection of the player) 
-	 * 								- asks, if a key was collected, changes the platforms accordingly
-	 * 								- asks, if the level is finished
-	 * 								- updates the time
+	 * wird einmal pro Frame aufgerufen: - fragt ab, ob das Spielfeld drehbar ist
+	 * 									 - aktualisiert den PlayerController (Kollisionsabrage des Spielers)
+	 * 									 - fragt ab, ob ein Schlüssel eingesammt wurde und ändert dementprechend die Plattformen
+	 * 									 - fragt ab, ob das Level beendet wurde
+	 * 									 - aktualisiert die Zeit
 	 */
 	public void update()
 	{
@@ -190,7 +188,7 @@ public class GameController implements KeyListener{
 	}
 	
 	/**
-	 * resets the playing field to the given level
+	 * setz das Spielfeld auf den Start des übergebenen Levels zurück
 	 * @param pLevel
 	 */
 	public void resetLevel(int pLevel)
@@ -213,7 +211,12 @@ public class GameController implements KeyListener{
 		zKey[0]=hLevels.getKey1(pLevel,zVersion);
 		zKey[1]=hLevels.getKey2(pLevel,zVersion);
 		zKey[2]=hLevels.getKey3(pLevel,zVersion);
-
+//		for(int i=0;i<zLage.length;i++)
+//		{zLage[i]=0;}
+//		for(int i=0;i<zPlatform.length;i++)
+//		{
+//			zPlatform[i]=hLevels.getPlatform(zLevelNummer, zVersion, zLage[i], i);
+//		}
 		zSpikes=hLevels.getSpikes(pLevel, zVersion);
 		for(int i=0;i<hLevels.getKeyNumbers(pLevel);i++)
 		{
@@ -227,7 +230,7 @@ public class GameController implements KeyListener{
 	}
 	
 	/**
-	 * starts the next level, according to the current level
+	 * startet das nächste Level, ausgehend von dem aktuellen Level
 	 */
 	public void nextLevel()
 	{
@@ -247,7 +250,7 @@ public class GameController implements KeyListener{
 
 	
 	/**
-	 * keyboard action
+	 * Tastaturabfrage
 	 * @Override keyReleased(KeyEvent arg0)
 	 */
 	@Override
@@ -265,18 +268,11 @@ public class GameController implements KeyListener{
 		
 	}
 	
-	/**
-	 * returns the current level number
-	 * @return zLevelNummer
-	 */
 	public int getLevel()
 	{
 		return zLevelNummer;
 	}
 	
-	/**
-	 * sets the next color, according to the current color
-	 */
 	public void newColor()
 	{
 		zFarbe++;

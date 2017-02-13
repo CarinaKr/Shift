@@ -81,8 +81,7 @@ public class PlayerController implements KeyListener {
 		rightXToObstacle = 0;
 		yToObstacle = 0;
 		moveDir[3] = true;
-		if(this.player.getJumpHeight() <= 5) 
-			moveDir[2] = false;
+		if(this.player.getJumpHeight() <= 5) moveDir[2] = false;
 		
 		if (moveDir[0] && this.player.getxSpeed() <= 0) {
 			if (this.player.getXPos() - this.player.getPAINTING_OFFSET() > 0 ) {

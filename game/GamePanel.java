@@ -31,7 +31,7 @@ public class GamePanel extends JPanel{
 	private final int PAINTING_OFFSET = 6;
 		
 	/**
-	 * initializes the panel on which the level gets painted
+	 * erstellt das Panel, auf dem das Level dargestellt wird
 	 */
 	public GamePanel()
 	{
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel{
 	}
 
 	/**
-	 * paints all components of the level
+	 * zeichnet alle Elemente des Levels
 	 * @Override paintComponent(Graphics g)
 	 */
 	@Override
@@ -85,7 +85,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	/**
-	 * gets all important variables from the controller and overrides the classes own variables
+	 * bekommt alle wichtigen Variablen vom Controller und übernimmt sie für eigene Klassenvariablen
 	 * @param pPlayer
 	 * @param pBackground
 	 * @param pDoor

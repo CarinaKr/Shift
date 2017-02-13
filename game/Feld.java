@@ -20,9 +20,9 @@ public class Feld {
 	private boolean zReturnAccessable;
 	private boolean zSpike;
 	
-	/** 
-	 * initializes a new field and gives it a X- and Y-position as field-coordinates,
-	 * a size and whether it is accessible or not
+	/**
+	 * erstellt ein neues Feld und gibt diesem eine X- und Y-Position als Feldkoordinaten, 
+	 * eine Größe und ob es standartmäßig Begehbar ist 
 	 * @param pX
 	 * @param pY
 	 * @param pSize
@@ -43,7 +43,7 @@ public class Feld {
 	}
 	
 	/**
-	 * changes the accessibility to the value of pAcessable
+	 * ändert die Begehbarkeit des Feldes auf den Wert von pAcessable
 	 * @param pAcessable
 	 */
 	public void setAcessable(boolean pAcessable)
@@ -52,7 +52,7 @@ public class Feld {
 		zReturnAccessable=pAcessable;
 	}
 	/**
-	 * returns wether the field is accessible
+	 * gibt zurück, ob das Feld begehbar ist
 	 * @return Acessable
 	 */
 	public boolean isAccessable()
@@ -61,7 +61,7 @@ public class Feld {
 	}
 	
 	/**
-	 * returns the pixel-coordinates of the field
+	 * gibt die Pixelposition des Feldes zurück
 	 * @return realX
 	 */
 	public int getXPos()
@@ -69,7 +69,7 @@ public class Feld {
 		return zRealX;
 	}
 	/**
-	 * returns the pixel-coordinates of the field
+	 * gibt die Pixelposition des Feldes zurück
 	 * @return realY
 	 */
 	public int getYPos()
@@ -78,7 +78,7 @@ public class Feld {
 	}
 	
 	/**
-	 * checks if the field contains the point pX/pY 
+	 * prüft ob der Punkt pX/pY in diesem Feld liegt
 	 * @param pX
 	 * @param pY
 	 * @return true, wenn der pX/pY in diesem Feld liegt
@@ -94,21 +94,21 @@ public class Feld {
 	}
 	
 	/**
-	 * sets the door-value of the field to pDoor
+	 * setzt den Türwert des Feldes auf den Wert von pDoor
 	 * @param pDoor
 	 */
 	public void setDoor(boolean pDoor) {
 		this.zDoor = pDoor;
 	}
 	/**
-	 *  sets the key-value of the field to pKey
+	 * setzt den Schlüsselwert des Feldes auf den Wert von pKey
 	 * @param pKey
 	 */
 	public void setKey(boolean pKey) {
 		this.zKey = pKey;
 	}
 	/**
-	 * sets the platform-value of the field to pPlatform
+	 * setzt den Platformwert des Feldes auf den Wert von pPlatform
 	 * @param pPlatform
 	 */
 	public void setPlatform(boolean pPlatform) {
@@ -119,7 +119,7 @@ public class Feld {
 		{zAcessable=true;}
 	}
 	/**
-	 * sets the spike-value of the field to pSpike
+	 * setzt den Spiekwert des Feldes auf den Wert von pSpike
 	 * @param pSpike
 	 */
 	public void setSpike(boolean pSpike)
@@ -128,28 +128,28 @@ public class Feld {
 	}
 	
 	/**
-	 * returns weather the field is a door
+	 * gibt zurück ob das Feld eine Tür ist
 	 * @return
 	 */
 	public boolean isDoor() {
 		return zDoor;
 	}
 	/**
-	 *  returns weather the field is a key
+	 * gibt zurück ob das Feld ein Schlüssel ist
 	 * @return
 	 */
 	public boolean isKey() {
 		return zKey;
 	}
 	/**
-	 *  returns weather the field is a platform
+	 * gibt zurück ob das Feld eine Platform ist
 	 * @return
 	 */
 	public boolean isPlatform() {
 		return zPlatform;
 	}
 	/**
-	 *  returns weather the field is a spike
+	 * gibt zurück ob das Feld ein Spike ist
 	 * @return
 	 */
 	public boolean isSpike()
