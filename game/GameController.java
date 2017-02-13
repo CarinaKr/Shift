@@ -37,9 +37,7 @@ public class GameController implements KeyListener{
 	private int zVersion=0;
 	private int zFarbe=0;
 	private int zSize=40;
-	private boolean zDownFree,zUpFree,zLeftFree,zRightFree;
-	private boolean zLeftKey,zRightKey;
-	private int zJumpCount;
+	private boolean zDownFree;
 	private boolean zJump;
 	private int zTurn,zDrehpunktX,zDrehpunktY;
 	private boolean zShift;
@@ -138,9 +136,6 @@ public class GameController implements KeyListener{
 	public void update()
 	{
 		zDownFree=true;
-		zUpFree=true;
-		zLeftFree=true;
-		zRightFree=true;
 		zShift=false;
 		int a,b,c;
 		a=hPlayer.getXPos()/zSize;
@@ -156,50 +151,7 @@ public class GameController implements KeyListener{
 		}
 		
 		hPController.updatePlayer();
-//		for(int i=0;i<15;i++)
-//		{for(int j=0;j<15;j++)
-//			{
-//				if(hFelder[i][j].isAccessable()==false)
-//				{
-//					//down
-//					if(hFelder[i][j].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+zSize+1)||
-//						hFelder[i][j].contains(hPlayer.getXPos()+zSize-1, hPlayer.getYPos()+zSize+1)||
-//						hPlayer.getYPos()+zSize+1>15*zSize)
-//					{
-//						zDownFree=false;
-//						zJump=false;
-////						if(zJump&&zJumpCount==0)
-////						{zJump=false;}
-//						if(hFelder[i][j].isPlatform())
-//						{zShift=false;}
-//					}
-//					//up
-//					if(hFelder[i][j].contains(hPlayer.getXPos()+1, hPlayer.getYPos()-1)||
-//							hFelder[i][j].contains(hPlayer.getXPos()+zSize-1, hPlayer.getYPos()-1)||
-//							hPlayer.getYPos()-1<0)
-//					{
-//						zUpFree=false;
-//						zJumpCount=0;
-//					}
-//					//left 
-//					if(hFelder[i][j].contains(hPlayer.getXPos()-1, hPlayer.getYPos()+1)||
-//								hFelder[i][j].contains(hPlayer.getXPos()-1, hPlayer.getYPos()+zSize-1)||
-//								hPlayer.getXPos()-1<0)
-//					{
-//						zLeftFree=false;
-//					}
-//			
-//					//right
-//					if(hFelder[i][j].contains(hPlayer.getXPos()+zSize+1, hPlayer.getYPos()+1)||
-//								hFelder[i][j].contains(hPlayer.getXPos()+zSize+1, hPlayer.getYPos()+zSize-1)||
-//								hPlayer.getXPos()+zSize+1>15*zSize)
-//					{
-//						zRightFree=false;
-//					}
-//				}				
-//			}
-//		}
-//		
+
 		for(int i=0;i<hLevels.getKeyNumbers(zLevelNummer);i++)
 		{
 			if(hFelder[zKey[i][0]][zKey[i][1]].isKey()&&(hFelder[zKey[i][0]][zKey[i][1]].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+1)|| //obere linke Ecke
@@ -228,17 +180,6 @@ public class GameController implements KeyListener{
 			}
 		}
 		
-//		if(zDownFree&&zJumpCount==0)
-//		{hPlayer.moveY(1);}
-//		if(zUpFree&&zJumpCount>0)
-//		{
-//			hPlayer.moveY(-1);
-//			zJumpCount--;
-//		}
-//		if(zLeftKey&&zLeftFree)
-//		{hPlayer.moveX(-1);}
-//		if(zRightKey&&zRightFree)
-//		{hPlayer.moveX(1);}
 		zTime+=0.01;
 		double pTime=(int)(zTime*10);
 		double pTime2=pTime/10;
@@ -307,50 +248,13 @@ public class GameController implements KeyListener{
 		}
 	}
 
-	/**
-	 * Tastaturabfrage
-	 * @Override keyPressed(KeyEvent arg0)
-	 */
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		if(arg0.getKeyCode()==37)//left arrow key
-		{
-			zLeftKey=true;
-		}
-		else if(arg0.getKeyCode()==39)//right arrow key
-		{
-			zRightKey=true;
-		}
-		//TODO: kann man die arrows weglassen? 
-		
-//		if(arg0.getKeyCode()==32&&zJump==false&&hPlayer.getY()>hPlayer.getHeight())
-//		{
-//			zJumpCount=hPlayer.getHeight();
-//			zJump=true;
-//		}
-	}
-
+	
 	/**
 	 * Tastaturabfrage
 	 * @Override keyReleased(KeyEvent arg0)
 	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		if(arg0.getKeyCode()==37)//left arrow key
-		{
-			zLeftKey=false;
-		}
-		else if(arg0.getKeyCode()==39)//right arrow key
-		{
-			zRightKey=false;
-		}
-		
-		if(arg0.getKeyCode()==32&&zJump==false&&hPlayer.getYPos()>hPlayer.getHeight())
-		{
-			zJumpCount=hPlayer.getHeight();
-			zJump=true;
-		}
-		//TODO: arrows weglassen und jump weglassen
 		
 		if(arg0.getKeyCode()==16)//shift
 		{	System.out.println("shift");
@@ -376,5 +280,11 @@ public class GameController implements KeyListener{
 		{
 			zFarbe=0;
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

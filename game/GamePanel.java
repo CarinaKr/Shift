@@ -20,7 +20,7 @@ public class GamePanel extends JPanel{
 	private Image zBackground;
 	
 	private int[] zDoor,zLage;
-	private int[][] zKey,zSpikes;
+	private int[][] zKey;
 	private int[][][] zPlatform;
 	private int zKeyNumbers;
 	private Image[] zDoorImage,zKeyImage,zPlatformImage;
@@ -48,7 +48,6 @@ public class GamePanel extends JPanel{
 			zDoorImage[2]=ImageIO.read(new File("Shift/images/ExitBlau.png"));
 			zKeyImage[2]=ImageIO.read(new File("Shift/images/KeyBlau.png"));
 			zPlatformImage[2]=ImageIO.read(new File("Shift/images/PlatformBlau.png"));
-			//zSpikeImage=ImageIO.read(new File("Shift/images/Spikes.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,19 +77,10 @@ public class GamePanel extends JPanel{
 					g.drawImage(zPlatformImage[zFarbe],zPlatform[i][j][0]*zSize,zPlatform[i][j][1]*zSize,null);
 				}
 			}
-//			for(int i=0;i<zSpikes.length;i++)
-//			{
-//				g.setColor(Color.GREEN);
-//				g.fillRect(zSpikes[i][0]*zSize,zSpikes[i][1]*zSize,zSize,zSize);
-//			}
 		
 			g.drawImage(zCharIMG, zPlayer.getXPos()-PAINTING_OFFSET, zPlayer.getYPos(), zPlayer.getXPos() + zPlayer.getWidth() + PAINTING_OFFSET, zPlayer.getYPos()+40, 
 						zPlayer.getCoords()[0], zPlayer.getCoords()[1], zPlayer.getCoords()[2], zPlayer.getCoords()[3], null);
-//			g.setColor(Color.BLACK);
-//			double pTime=(int)(zTime*100);
-//			double pTime2=pTime/100;
-//			String pTimeString=""+pTime2;
-//			g.drawChars(pTimeString.toCharArray(), 0, pTimeString.length(), 14*zSize, zSize/2);
+
 		}
 	}
 	
@@ -117,6 +107,5 @@ public class GamePanel extends JPanel{
 		zPlatform=pPlatform;
 		zLage=pLage;
 		zKeyNumbers=pKeyNumbers;
-		zSpikes=pSpikes;
 	}
 }

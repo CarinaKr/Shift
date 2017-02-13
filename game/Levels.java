@@ -336,30 +336,7 @@ public class Levels {
 		}
 		return null;
 	}
-//	public int[][] getPlatform1(int pLevel,int pVersion,int pLage)
-//	{
-//		if(pVersion==0)
-//		{return zPlatform1Black[pLevel-1][pLage];}
-//		else if(pVersion==1)
-//		{return zPlatform1White[pLevel-1][pLage];}
-//		return null;
-//	}
-//	public int[][] getPlatform2(int pLevel,int pVersion,int pLage)
-//	{
-//		if(pVersion==0)
-//		{return zPlatform2Black[pLevel-1][pLage];}
-//		else if(pVersion==1)
-//		{return zPlatform2White[pLevel-1][pLage];}
-//		return null;
-//	}
-//	public int[][] getPlatform3(int pLevel,int pVersion,int pLage)
-//	{
-//		if(pVersion==0)
-//		{return zPlatform3Black[pLevel-1][pLage];}
-//		else if(pVersion==1)
-//		{return zPlatform3White[pLevel-1][pLage];}
-//		return null;
-//	}
+
 	/**
 	 * gibt die Position der Tür für das angegebene Level und Lage zurück
 	 * @param pLevel
