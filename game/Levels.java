@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import window.WindowView;
+
 /**
  * @author Carina
  *
@@ -83,7 +85,11 @@ public class Levels {
 	 */
 	private int[][][] zSpikesWhite={{},{{14-3,14-0},{14-9,14-1},{14-10,14-1},{14-11,14-1},{14-12,14-1},{14-8,14-14},{14-9,14-14}}};	//Level, Teil, X/Y
 	
-	/**
+	/**<dd>
+	 * <h3><i> Levels </i></h3>
+	 * <p>
+	 * <code>{@code public Levels()}</code>
+	 * </p>
 	 * Initializes the fields for all levels corresponding to the variables defined earlier and sets the correct
 	 * values for each field
 	 */
@@ -258,7 +264,11 @@ public class Levels {
 		
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> getLevel </i></h3>
+	 * <p>
+	 * <code>{@code public getLevel({@link integer} pLevel, {@link integer} pVersion)}</code>
+	 * </p>
 	 * returns the right two-dimensional Array for the field, by given level and version
 	 * @param pLevel
 	 * @param pVersion
@@ -279,7 +289,11 @@ public class Levels {
 		return null;
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> getBackground </i></h3>
+	 * <p>
+	 * <code>{@code public getBackground({@link integer} pLevel} isAcessable)}</code>
+	 * </p>
 	 * returns the background image for the given level
 	 * @param pLevel
 	 * @return BufferedImage
@@ -294,7 +308,11 @@ public class Levels {
 		return null;
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> getPlayerPosition </i></h3>
+	 * <p>
+	 * <code>{@code public getPlayerPosition({@link integer} pLevel)}</code>
+	 * </p>
 	 * returns the starting position of the player for the given level
 	 * @param pLevel
 	 * @return int[] - [0]=x; [1]=y
@@ -303,7 +321,11 @@ public class Levels {
 	{
 		return zPlayerPosition[pLevel-1];
 	}
-	/**
+	/**<dd>
+	 * <h3><i> getPlatform </i></h3>
+	 * <p>
+	 * <code>{@code public getPlatform({@link integer} pLevel, {@link integer} pVersion,{@link integer} pLage,{@link integer} pNummer)}</code>
+	 * </p>
 	 * returns the platform for the given level, version, orientation and number
 	 * @param pLevel
 	 * @param pVersion
@@ -337,7 +359,11 @@ public class Levels {
 		return null;
 	}
 
-	/**
+	/**<dd>
+	 * <h3><i> getDoor </i></h3>
+	 * <p>
+	 * <code>{@code public getDoor({@link integer} pLevel, {@link integer} pVersion)}</code>
+	 * </p>
 	 * returns the position of the exit for the given level and version
 	 * @param pLevel
 	 * @param pVersion
@@ -351,7 +377,11 @@ public class Levels {
 		{return zDoorWhite[pLevel-1];}
 		return null;
 	}
-	/**
+	/**<dd>
+	 * <h3><i> getKey1 </i></h3>
+	 * <p>
+	 * <code>{@code public getKey1({@link integer} pLevel, {@link integer} pVersion)}</code>
+	 * </p>
 	 * returns the position of the first key of the given level and version
 	 * @param pLevel
 	 * @param pVersion
@@ -365,7 +395,11 @@ public class Levels {
 		{return zKey1White[pLevel-1];}
 		return null;
 	}
-	/**
+	/**<dd>
+	 * <h3><i> getKey2 </i></h3>
+	 * <p>
+	 * <code>{@code public getKey2({@link integer} pLevel, {@link integer} pVersion)}</code>
+	 * </p>
 	 * returns the position of the second key of the given level and version
 	 * @param pLevel
 	 * @param pVersion
@@ -379,7 +413,11 @@ public class Levels {
 		{return zKey2White[pLevel-1];}
 		return null;
 	}
-	/**
+	/**<dd>
+	 * <h3><i> getKey3 </i></h3>
+	 * <p>
+	 * <code>{@code public getKey3({@link integer} pLevel, {@link integer} pVersion)}</code>
+	 * </p>
 	 * returns the position of the third key of the given level and version
 	 * @param pLevel
 	 * @param pVersion
@@ -394,7 +432,11 @@ public class Levels {
 		return null;
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> getKeyNumbers </i></h3>
+	 * <p>
+	 * <code>{@code public getKeyNumbers({@link integer} pLevel)}</code>
+	 * </p>
 	 * returns the total number of key in the given level
 	 * @param pLevel
 	 * @return
@@ -404,7 +446,11 @@ public class Levels {
 		return zKeyNumbers[pLevel-1];
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> getSpikes </i></h3>
+	 * <p>
+	 * <code>{@code public getSpikes({@link integer} pLevel, {@link integer} pVersion)}</code>
+	 * </p>
 	 * returns the position of the spikes for the given level and version
 	 * @param pLevel
 	 * @param pVersion
@@ -419,7 +465,11 @@ public class Levels {
 		return null;
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> setPlatform </i></h3>
+	 * <p>
+	 * <code>{@code public setPlatform({@link integer} pLevel, {@link integer} pVersion,{@link integer) pNummer}</code>
+	 * </p>
 	 * sets the Platform for the given level, orientation and number
 	 * @param pLevel
 	 * @param pLage
@@ -513,7 +563,11 @@ public class Levels {
 		}
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> resetKeys </i></h3>
+	 * <p>
+	 * <code>{@code public resetKeys({@link integer} pLevel)}</code>
+	 * </p>
 	 * resets the Keys in the given level
 	 * @param pLevel
 	 */

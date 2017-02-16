@@ -43,7 +43,6 @@ public class WindowView extends JFrame{
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize (615,600 + bar.getHeight()+60);
-		System.out.println(bar.getHeight());
 		setVisible(true);
 	}
 

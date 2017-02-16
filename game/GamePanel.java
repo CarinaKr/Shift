@@ -9,6 +9,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import window.WindowController;
+import window.WindowView;
+
 
 /**
  * @author Carina
@@ -30,7 +33,12 @@ public class GamePanel extends JPanel{
 	private int zSize=40;
 	private final int PAINTING_OFFSET = 6;
 		
-	/**
+	/**<dd>
+	 * <h3><i> GamePanel </i></h3>
+	 * <p>
+	 * <code>{@code public GamePanel()}</code>
+	 * </p>
+	 * 
 	 * initializes the panel on which the level gets painted
 	 */
 	public GamePanel()
@@ -54,7 +62,12 @@ public class GamePanel extends JPanel{
 		}
 	}
 
-	/**
+	/**<dd>
+	 * <h3><i> paintComponent </i></h3>
+	 * <p>
+	 * <code>{@code public paintComponent({@link Graphics} g)}</code>
+	 * </p>
+	 * 
 	 * paints all components of the level
 	 * @Override paintComponent(Graphics g)
 	 */
@@ -84,7 +97,14 @@ public class GamePanel extends JPanel{
 		}
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> update </i></h3>
+	 * <p>
+	 * <code>{@code public update({@link PlayerModel} pPlayer, {@link Image} pBackground,{@link integer}[] pDoor,
+	 * 			{@link integer}[][] pKey,{@link integer}[][][] pPlatform,{@link integer}[] pLage,{@link integer} pKeyNumbers,
+	 * 			{@link integer}[][] pSpikes,{@link integer} pFarbe)}</code>
+	 * </p>
+	 * 
 	 * gets all important variables from the controller and overrides the classes own variables
 	 * @param pPlayer
 	 * @param pBackground
@@ -94,7 +114,7 @@ public class GamePanel extends JPanel{
 	 * @param pLage
 	 * @param pKeyNumbers
 	 * @param pSpikes
-	 * @param pTime
+	 * @param pFarbe
 	 */
 	public void update(PlayerModel pPlayer,Image pBackground,int[] pDoor,int[][] pKey,int[][][] pPlatform,int[] pLage,int pKeyNumbers,int[][] pSpikes,int pFarbe)
 	{

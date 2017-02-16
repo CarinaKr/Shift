@@ -1,9 +1,13 @@
 package window;
 
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.MenuItem;
 
 import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,6 +24,7 @@ public class MenuBarView extends JMenuBar{
 	private JMenu accountMenu;
 	private JMenu one;
 	private JMenu options;
+	private JButton sound;
 	
 	private JLabel currentTime;
 
@@ -63,9 +68,10 @@ public class MenuBarView extends JMenuBar{
 		 controls = new JMenuItem("Controls");
 		options.add(controls);
 		
+		this.sound = new JButton();
+		this.sound.setPreferredSize(new Dimension(20,17));
 		
 		this.currentTime = new JLabel(String.valueOf(this.playerAccount.getTime()));
-		
 		
 		this.add(one);
 		this.add(accountMenu);
@@ -73,6 +79,8 @@ public class MenuBarView extends JMenuBar{
 		this.add(Box.createHorizontalGlue());
 		this.add(currentTime);
 		this.add(Box.createHorizontalStrut(20));
+		this.add(sound);
+		this.add(Box.createHorizontalStrut(5));
 	}
 	
 	public Account getPlayer(){
@@ -85,6 +93,10 @@ public class MenuBarView extends JMenuBar{
 	
 	public JMenu getGame(){
 		return this.one;
+	}
+	
+	public JButton getSound() {
+		return sound;
 	}
 	
 	public JMenuItem getRestart()
@@ -124,9 +136,12 @@ public class MenuBarView extends JMenuBar{
 		return main;
 	}
 	
+	public JMenuItem getExit() {
+		return exit;
+	}
+	
 	public JMenuItem getViewScore() {
 		return viewScore;
 	}
-	
 
 }

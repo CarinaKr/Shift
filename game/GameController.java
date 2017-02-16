@@ -37,13 +37,17 @@ public class GameController implements KeyListener{
 	private int zVersion=0;
 	private int zFarbe=0;
 	private int zSize=40;
-	private boolean zDownFree;
 	private boolean zJump;
 	private int zTurn,zDrehpunktX,zDrehpunktY;
 	private boolean zShift;
 	private double zTime;
 	
-	/**
+	/**<dd>
+	 * <h3><i> GameController </i></h3>
+	 * <p>
+	 * <code>{@code public GameController({@link WindowView} view, {@link WindowController} winController)}</code>
+	 * </p>
+	 * 
 	 * initializes the controller for the level
 	 */
 	public GameController(WindowView view,WindowController winController)
@@ -52,24 +56,62 @@ public class GameController implements KeyListener{
 		hWindowController=winController;
 		hView.addKeyListener(this);
 		hLevels=new Levels();
-		hBackground=hLevels.getBackground(zLevelNummer);
-		hFelder=hLevels.getLevel(zLevelNummer, zVersion);
+//		hBackground=hLevels.getBackground(zLevelNummer);
+//		hFelder=hLevels.getLevel(zLevelNummer, zVersion);
 		hPlayer=new PlayerModel(hLevels.getPlayerPosition(zLevelNummer)[0]*zSize,hLevels.getPlayerPosition(zLevelNummer)[1]*zSize,14,40);
 		hPController=new PlayerController(hPlayer,hFelder);
 		hView.addKeyListener(hPController);
-		zDoor=hLevels.getDoor(zLevelNummer,zVersion);
-		zKey[0]=hLevels.getKey1(zLevelNummer,zVersion);
-		zPlatform[0]=hLevels.getPlatform(zLevelNummer,zVersion,0,0);
-		zSpikes=hLevels.getSpikes(zLevelNummer, zVersion);
-		
+//		zDoor=hLevels.getDoor(zLevelNummer,zVersion);
+//		zKey[0]=hLevels.getKey1(zLevelNummer,zVersion);
+//		zPlatform[0]=hLevels.getPlatform(zLevelNummer,zVersion,0,0);
+//		zSpikes=hLevels.getSpikes(zLevelNummer, zVersion);
+//		
 		hTimerTurn=new Timer(10, e->turn());
 		hTimer=new Timer(10, e->update());
-		hTimer.start();
-		
-		nextLevel();
+//		hTimer.start();
+//		
+//		nextLevel();
 	}
 
-	/**
+	/**<dd>
+	 * <h3><i> initGame </i></h3>
+	 * <p>
+	 * <code>{@code public initGame()}</code>
+	 * </p>
+	 * Initializes new game
+	 */
+	public void initGame() {
+		zTime = 0;
+		nextLevel(1);
+	}
+	
+	/**<dd>
+	 * <h3><i> pauseGame </i></h3>
+	 * <p>
+	 * <code>{@code public pauseGame()}</code>
+	 * </p>
+	 * pauses the game
+	 */
+	public void pauseGame(){
+		hTimer.stop();
+	}
+	
+	/**<dd>
+	 * <h3><i> resumeGame </i></h3>
+	 * <p>
+	 * <code>{@code public resumeGame()}</code>
+	 * </p>
+	 * resumes the current game
+	 */
+	public void resumeGame(){
+		hTimer.start();
+	}
+	
+	/**<dd>
+	 * <h3><i> shift </i></h3>
+	 * <p>
+	 * <code>{@code public shift()}</code>
+	 * </p>
 	 * inverts the playing field and turns it by 180 degrees
 	 */
 	public void shift()
@@ -96,7 +138,11 @@ public class GameController implements KeyListener{
 		}
 		hPController.setFelder(hFelder);
 	}
-	/**
+	/**<dd>
+	 * <h3><i> turn </i></h3>
+	 * <p>
+	 * <code>{@code public turn()}</code>
+	 * </p>
 	 * turns the background image by 180 degrees
 	 */
 	public void turn()
@@ -128,7 +174,11 @@ public class GameController implements KeyListener{
 		}
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> update </i></h3>
+	 * <p>
+	 * <code>{@code public update()}</code>
+	 * </p>
 	 * gets calles once per frame: 	- asks, if the playing field can be shifted
 	 * 								- updates the PlayerController (collision detection of the player) 
 	 * 								- asks, if a key was collected, changes the platforms accordingly
@@ -137,7 +187,6 @@ public class GameController implements KeyListener{
 	 */
 	public void update()
 	{
-		zDownFree=true;
 		zShift=false;
 		int a,b,c;
 		a=hPlayer.getXPos()/zSize;
@@ -170,7 +219,7 @@ public class GameController implements KeyListener{
 		if(hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+1, hPlayer.getYPos()+1)&&
 				hFelder[zDoor[0]][zDoor[1]].contains(hPlayer.getXPos()+hPlayer.getWidth()-1, hPlayer.getYPos()+hPlayer.getHeight()-1))
 		{
-			nextLevel();
+			nextLevel(zLevelNummer+1);
 		}
 		
 		for(int i=0;i<zSpikes.length;i++)
@@ -189,7 +238,11 @@ public class GameController implements KeyListener{
 		hView.update(hPlayer, hBackground[zFarbe],zDoor,zKey,zPlatform,zLage,hLevels.getKeyNumbers(zLevelNummer),zSpikes,zFarbe);
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> resetLevel </i></h3>
+	 * <p>
+	 * <code>{@code public resetLevel({@link integer} pLevel)}</code>
+	 * </p>
 	 * resets the playing field to the given level
 	 * @param pLevel
 	 */
@@ -222,23 +275,27 @@ public class GameController implements KeyListener{
 			zPlatform[i]=hLevels.getPlatform(pLevel, zVersion, zLage[i],i);
 			hLevels.setPlatform(pLevel, zLage[i],i);
 		}
-		hLevels.resetKeys(zLevelNummer);
+		hLevels.resetKeys(pLevel);
 		hPController.setFelder(hFelder);
 	}
 	
-	/**
-	 * starts the next level, according to the current level
+	/**<dd>
+	 * <h3><i> nextLevel </i></h3>
+	 * <p>
+	 * <code>{@code public nextLevel({@link integer} pLevelNummber)}</code>
+	 * </p>
+	 * starts the level given in pLevelNummer
 	 */
-	public void nextLevel()
+	public void nextLevel(int pLevelNummer)
 	{
 		hTimer.stop();
-		if(zLevelNummer<2)
+		if(pLevelNummer<3)
 		{
-			zLevelNummer++;
-			resetLevel(zLevelNummer);
+			resetLevel(pLevelNummer);
+			zLevelNummer = pLevelNummer;
 			hTimer.start();
 		}
-		else if(zLevelNummer==2)
+		else if(pLevelNummer==2)
 		{
 			//TODO:
 			//Game Over Funktion, Hausptmenü?
@@ -246,7 +303,11 @@ public class GameController implements KeyListener{
 	}
 
 	
-	/**
+	/**<dd>
+	 * <h3><i> keyReleased </i></h3>
+	 * <p>
+	 * <code>{@code public keyReleased({@link KeyEvent} arg0)}</code>
+	 * </p>
 	 * keyboard action
 	 * @Override keyReleased(KeyEvent arg0)
 	 */
@@ -265,7 +326,11 @@ public class GameController implements KeyListener{
 		
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> getLevel </i></h3>
+	 * <p>
+	 * <code>{@code public getLevel()}</code>
+	 * </p>
 	 * returns the current level number
 	 * @return zLevelNummer
 	 */
@@ -274,7 +339,11 @@ public class GameController implements KeyListener{
 		return zLevelNummer;
 	}
 	
-	/**
+	/**<dd>
+	 * <h3><i> newColor </i></h3>
+	 * <p>
+	 * <code>{@code public newColor()}</code>
+	 * </p>
 	 * sets the next color, according to the current color
 	 */
 	public void newColor()
@@ -290,9 +359,5 @@ public class GameController implements KeyListener{
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public void stopTimer(){
-		hTimer.stop();
 	}
 }

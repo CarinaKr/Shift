@@ -22,7 +22,7 @@ public class PlayerModel {
 	private final float J_ACC = 0.05f;
 	private final int PAINTING_OFFSET = 6;
 	private boolean isGrounded;
-	private int jumpHeight = 40;
+	private int jumpHeight = 50;
 	
 	public PlayerModel(int xPos, int yPos, int width, int height) {
 		this.xPos = xPos;
@@ -36,7 +36,7 @@ public class PlayerModel {
 		charImg[2] = new ImageIcon("Shift/images/StickySheetBlau.png").getImage();
 	}
 	
-	public void move(int leftXDist,int rightXDist, int yDist, int aniCount) {
+	public void move(int leftXDist,int rightXDist, int botYDist, int topYDist, int aniCount) {
 		xSpeed = ACCELARATION * xTargetSpeed + (1-ACCELARATION) * xSpeed;
 		ySpeed = J_ACC * yTargetSpeed + (1-J_ACC) * ySpeed;
 		
@@ -44,7 +44,7 @@ public class PlayerModel {
 			this.xPos += (int) (Math.min((rightXDist), xSpeed));
 			this.coords[1] = 0;
 			this.coords[3] = 45;
-			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((yDist), ySpeed) == 0 || Math.max((yDist), ySpeed) == 0)) {
+			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((botYDist), ySpeed) == 0 || Math.max((botYDist), ySpeed) == 0)) {
 				this.coords[0] += 26;
 				this.coords[2] += 26;
 			} else if (this.coords[0] == 208) {
@@ -56,7 +56,7 @@ public class PlayerModel {
 			this.xPos += (int) (Math.max((leftXDist), xSpeed));
 			this.coords[1] = 56;
 			this.coords[3] = 101;
-			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((yDist), ySpeed) == 0 || Math.max((yDist), ySpeed) == 0)) {
+			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((botYDist), ySpeed) == 0 || Math.max((botYDist), ySpeed) == 0)) {
 				this.coords[0] += 26;
 				this.coords[2] += 26;
 			} else if (this.coords[0] == 208) {
@@ -72,13 +72,13 @@ public class PlayerModel {
 			this.coords[3] = 198;
 		}
 		
-		if (yDist > 0) {
+		if (botYDist > 0) {
 			isGrounded = false;
-			this.yPos += (int) (Math.min((yDist), ySpeed));
+			this.yPos += (int) (Math.min((botYDist), ySpeed));
 		}
-		else if (yDist < 0 && jumpHeight > 0)  {
-			this.yPos += (int) (Math.max((yDist), ySpeed));
-			jumpHeight += (int) (Math.max((yDist), ySpeed));
+		else if (topYDist < 0 && jumpHeight > 0)  {
+			this.yPos += (int) (Math.max((topYDist), ySpeed));
+			jumpHeight += (int) (Math.max((topYDist), ySpeed));
 			if(jumpHeight <= 5) {
 				yTargetSpeed = 8;
 			}
@@ -117,6 +117,10 @@ public class PlayerModel {
 	
 	public float getxSpeed() {
 		return xSpeed;
+	}
+	
+	public float getySpeed() {
+		return ySpeed;
 	}
 	
 	public int getJumpHeight() {

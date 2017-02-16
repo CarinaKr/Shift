@@ -6,8 +6,9 @@ import java.awt.event.KeyListener;
 
 
 /**
+ * 
  * @author Kevin
- *
+ * 
  */
 public class PlayerController implements KeyListener {
 	
@@ -17,9 +18,18 @@ public class PlayerController implements KeyListener {
 	
 	private boolean moveDir[] = {false, false, false, true}; //left, right, up, down
 	private boolean wPressed = false;
-	private int leftXToObstacle, rightXToObstacle, yToObstacle, aniCount;
+	private int leftXToObstacle, rightXToObstacle, downYToObstacle, upYToObstacle, aniCount;
 	private final int TILESIZE = 40;
 	
+	/**<dd>
+	 * <h3><i> PlayerController </i></h3>
+	 * <p>
+	 * <code>{@code public PlayerController({@link PlayerModel} player, {@link Feld}[][] felder)}</code>
+	 * </p>
+	 * text text
+	 * @param player - Expects a PlayerModel to control
+	 * @param felder - Expects the fields from the Game for checking the Collision
+	 */
 	public PlayerController(PlayerModel player, Feld[][] felder) {
 		this.player = player;
 		this.felder = felder;
@@ -27,17 +37,17 @@ public class PlayerController implements KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_D) {
+		if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			this.player.setxTargetSpeed(3);
 			moveDir[1] = true;
 			moveDir[0] = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_A) {
+		if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
 			this.player.setxTargetSpeed(-3);
 			moveDir[0] = true;
 			moveDir[1] = false;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_W && (!wPressed)) {
+		if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_SPACE) && (!wPressed)) {
 			wPressed = true;
 			if(this.player.getGrounded()) {
 				this.player.setyTargetSpeed(-6);
@@ -49,15 +59,15 @@ public class PlayerController implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_D) {
+		if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			moveDir[1] = false;
 			this.player.setxTargetSpeed(0);
 		}
-		if (e.getKeyCode() == KeyEvent.VK_A) {
+		if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
 			moveDir[0] = false;
 			this.player.setxTargetSpeed(0);
 		}
-		if (e.getKeyCode() == KeyEvent.VK_W) {
+		if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_SPACE) {
 			wPressed = false;
 			this.player.setyTargetSpeed(8);
 			moveDir[2] = false;
@@ -79,7 +89,8 @@ public class PlayerController implements KeyListener {
 		int i,j,tmp;
 		leftXToObstacle = 0;
 		rightXToObstacle = 0;
-		yToObstacle = 0;
+		upYToObstacle = 0;
+		downYToObstacle = 0;
 		moveDir[3] = true;
 		if(this.player.getJumpHeight() <= 5) 
 			moveDir[2] = false;
@@ -124,7 +135,7 @@ public class PlayerController implements KeyListener {
 			}
 		}
 		
-		if (moveDir[2]) {
+		if (moveDir[2] && this.player.getySpeed() <= 0) {
 			moveDir[3] = false;
 			if (this.player.getYPos() > 0) {
 				for (int x = 0; x < 2; x++) {
@@ -140,11 +151,11 @@ public class PlayerController implements KeyListener {
 							break;
 						}
 					}
-					if (x == 0 || (x == 1 && tmp > yToObstacle)) yToObstacle = tmp;
+					if (x == 0 || (x == 1 && tmp > upYToObstacle)) upYToObstacle = tmp;
 				}
 			}
 		} 
-		else if (moveDir[3]) {
+		else if (moveDir[3] && this.player.getySpeed() >= 0) {
 			if(this.player.getYPos() + this.player.getHeight() < 600) {	
 				for (int x = 0; x < 2; x++) {
 					tmp = 0;
@@ -159,17 +170,17 @@ public class PlayerController implements KeyListener {
 							break;
 						}
 					}
-					if (x == 0 || (x == 1 && tmp < yToObstacle)) yToObstacle = tmp;
+					if (x == 0 || (x == 1 && tmp < downYToObstacle)) downYToObstacle = tmp;
 				}
 			} 
 		}
 		
-		if (yToObstacle == 0 && moveDir[3]) {
+		if (downYToObstacle == 0 && moveDir[3]) {
 			moveDir[3] = false;
-			this.player.setJumpHeight(40);
+			this.player.setJumpHeight(50);
 			this.player.setGrounded(true);
 		}
-		else if (yToObstacle == 0 && moveDir[2]) {
+		else if (upYToObstacle == 0 && moveDir[2]) {
 			moveDir[2] = false;
 			moveDir[3] = true;
 			this.player.setyTargetSpeed(8);
@@ -184,7 +195,7 @@ public class PlayerController implements KeyListener {
 	
 	public void updatePlayer() {
 		checkDistanceToObstacle();
-		this.player.move(leftXToObstacle, rightXToObstacle, yToObstacle, aniCount);
+		this.player.move(leftXToObstacle, rightXToObstacle, downYToObstacle, upYToObstacle, aniCount);
 		aniCount++;
 	}
 }

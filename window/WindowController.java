@@ -3,15 +3,13 @@ package window;
 import game.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import javax.print.attribute.standard.Media;
 import javax.swing.ButtonModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -25,18 +23,20 @@ public class WindowController {
 	private MenuBarView bar;
 	private GameController gameController;
 	private ArrayList accounts;
-	
+			
 	private GamePanel hPanel;
 	private MainMenuPanel mPanel;
 	private HighscoresPanel sPanel;
+	private boolean mute;
 	
 	private Icon userIcon;
+	private Icon[] soundIcon = {new ImageIcon("Shift/images/Lautsprecher.png"),new ImageIcon("Shift/images/Lautsprecher2.png")};
 	
 	
 	public WindowController(){
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
-		
+		bar.getSound().setIcon(soundIcon[0]);
 		
 		this.view = new WindowView(bar);
 		view.setTitle("Shift");
@@ -45,6 +45,7 @@ public class WindowController {
 		this.userIcon = new ImageIcon("Shift/images/userIcon.png");
 		this.accounts = new ArrayList();
 		this.sPanel = new HighscoresPanel(this.accounts);
+		this.gameController = new GameController(this.view,this);
 		
 		
 				
@@ -52,9 +53,7 @@ public class WindowController {
 		mPanel.getStartNewGame().addActionListener(l -> {
 				hPanel = new GamePanel(); 
 				view.setGamePanel(hPanel);
-				
-				System.out.println("hi");
-				gameController = new GameController(this.view,this);
+				this.gameController.initGame();
 		});
 		
 		mPanel.getViewScores().addActionListener(l-> {
@@ -72,6 +71,7 @@ public class WindowController {
 		
 		
 		bar.getViewScore().addActionListener(l->{
+			this.gameController.pauseGame();
 			this.accounts.add(bar.getPlayerAccount());
 			showScoreList();
 //			this.sPanel = new HighscoresPanel(this.accounts);
@@ -80,7 +80,7 @@ public class WindowController {
 		bar.getMain().addActionListener(l->{
 			view.setMenuPanel(mPanel);
 			if(this.gameController!=null){
-				this.gameController.stopTimer();
+				this.gameController.pauseGame();
 			}
 		});
 		bar.getRestart().addActionListener(e->{
@@ -100,8 +100,8 @@ public class WindowController {
 			String newPassword = (String)JOptionPane.showInputDialog(frame, "New Password:","Change your password!", JOptionPane.PLAIN_MESSAGE,userIcon, null, "Your new password");
 			bar.getPlayerAccount().setPassword(newPassword);
 		});
-		
-		
+		bar.getSound().addActionListener(l->toggleSound());
+		bar.getExit().addActionListener(l->System.exit(0));
 		
 		
 		
@@ -147,6 +147,19 @@ public class WindowController {
 		
 	}
 	
+	private void toggleSound() {
+		// TODO Auto-generated method stub
+		if(mute) {
+			bar.getSound().setIcon(soundIcon[0]);
+			mute = false;
+			bar.setVisible(true);
+		} else {
+			bar.getSound().setIcon(soundIcon[1]);
+			mute = true;
+			bar.setVisible(true);
+		}
+	}
+
 	public void setTime(double pTime)
 	{
 		bar.setTime(pTime);
@@ -173,8 +186,15 @@ public class WindowController {
 		scorePanel.getBackToMain().addActionListener(l-> {
 			view.setMenuPanel(mPanel);
 			if(this.gameController!=null){
-				this.gameController.stopTimer();
+				this.gameController.pauseGame();
 			}
+			scoreDialog.dispose();
+		});
+		
+		scorePanel.getBackToGame().addActionListener(l-> {
+			scoreDialog.dispose();
+			this.gameController.resumeGame();
+			
 		});
 		
 	}
