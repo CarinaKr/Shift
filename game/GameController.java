@@ -11,7 +11,12 @@ import javax.swing.Timer;
 import window.WindowController;
 import window.WindowView;
 
-/**
+/**<dd>
+* <h3><i> GameController </i></h3>
+* The GameController controlls all the actions happening in the level. It has methods to
+* update the player movement and the game panel.
+* It also has a key-listener for shifting the game field and reacts to actions, such as 
+* collecting keys, walking into spikes and exiting the level.
  * @author Carina
  *
  */

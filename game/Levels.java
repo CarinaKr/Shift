@@ -8,10 +8,13 @@ import javax.imageio.ImageIO;
 
 import window.WindowView;
 
-/**
+/**<dd>
+* <h3><i> Levels </i></h3>
+* 
+* in this class all the important variables for all levels are initialized and saved
+* 
  * @author Carina
  *
- *in this class all the important variables for all levels are initialized and saved
  */
 public class Levels {
 	

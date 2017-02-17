@@ -1,10 +1,10 @@
 package window;
 
-import game.*;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.print.attribute.standard.Media;
 import javax.swing.ButtonModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -15,7 +15,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import account.Account;
-import menu.*;
+import game.GameController;
+import game.GamePanel;
+import menu.HighscoresPanel;
+import menu.MainMenuPanel;
+
+import  sun.audio.*;
 
 public class WindowController {
 	
@@ -34,6 +39,19 @@ public class WindowController {
 	
 	
 	public WindowController(){
+		
+//		InputStream in;
+//		try {
+//			in = new FileInputStream("Shift/sounds/sound.wav");
+//			AudioStream as = new AudioStream(in); 
+//			AudioPlayer.player.start(as); 
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
+		
+		
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
 		bar.getSound().setIcon(soundIcon[0]);

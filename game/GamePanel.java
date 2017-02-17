@@ -13,7 +13,10 @@ import window.WindowController;
 import window.WindowView;
 
 
-/**
+/**<dd>
+* <h3><i> GamePanel </i></h3>
+* On the Game Panel all the component for the level are drawn. It get's updates by the 
+* GameController.
  * @author Carina
  *
  */

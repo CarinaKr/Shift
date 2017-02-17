@@ -6,9 +6,14 @@ import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 
-/**
+/**<dd>
+* <h3><i> Feld </i></h3>
+ * 
+ * The game level is split up in 15x15 fields. Each field is of the class Feld and has a
+ * X- and Y-coordinate in field-coordinates, as well as pixel-coordinates. It also has variables
+ * for being acessable, being a door, a key, a platform or a spike.
+ * 
  * @author Carina
- *
  */
 public class Feld {
 
