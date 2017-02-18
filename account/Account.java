@@ -36,10 +36,10 @@ public class Account implements Comparable<Account> {
 	public int compareTo(Account other) {
 		// TODO Auto-generated method stub
 		if(this.time < other.getTime()){
-			return 1;
+			return -1;
 		}
 		else if(this.time > other.getTime()){
-			return -1;
+			return 1;
 		}
 		else return 0;
 		
