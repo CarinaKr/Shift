@@ -65,12 +65,22 @@ public class GameController implements KeyListener{
 		hView.addKeyListener(this);
 		soundBox = new SoundBox();
 		hLevels=new Levels();
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 		hPlayer=new PlayerModel(hLevels.getPlayerPosition(zLevelNummer)[0]*zSize,hLevels.getPlayerPosition(zLevelNummer)[1]*zSize,14,40);
 		hPController=new PlayerController(hPlayer,hFelder, soundBox);
 		hView.addKeyListener(hPController);
 		
 		hTimerTurn=new Timer(10, e->turn());
 		hTimer=new Timer(10, e->update());
+<<<<<<< HEAD
+=======
+		
+		hTimerTurn=new Timer(10, e->turn());
+		hTimer=new Timer(10, e->update());
+>>>>>>> origin/master
 	}
 
 	/**<dd>
@@ -304,11 +314,14 @@ public class GameController implements KeyListener{
 			//TODO:
 			//Game Over Funktion, Hausptmenü?
 			soundBox.victory();
+<<<<<<< HEAD
 			hWindowController.getAccounts().add(hWindowController.getBar().getPlayerAccount());
 			hWindowController.showScoreList();
 			hWindowController.getScorePanel().getBackToGame().setEnabled(false);
 			hWindowController.getBar().setAccount(new Account(hWindowController.getBar().getPlayerAccount().getName(),"Test"));
 
+=======
+>>>>>>> origin/master
 		}
 	}
 
@@ -350,6 +363,10 @@ public class GameController implements KeyListener{
 	}
 	
 	/**<dd>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
 	 * <h3><i> getSoundBox </i></h3>
 	 * <p>
 	 * <code>{@code public getSoundBox()}</code>
@@ -363,6 +380,11 @@ public class GameController implements KeyListener{
 	}
 	
 	/**<dd>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 	 * <h3><i> newColor </i></h3>
 	 * <p>
 	 * <code>{@code public newColor()}</code>

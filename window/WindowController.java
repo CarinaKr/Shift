@@ -1,5 +1,11 @@
 package window;
 
+<<<<<<< HEAD
+=======
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+>>>>>>> origin/master
 import java.util.ArrayList;
 
 import javax.swing.ButtonModel;
@@ -18,17 +24,29 @@ import game.GamePanel;
 import menu.HighscoresPanel;
 import menu.MainMenuPanel;
 
+<<<<<<< HEAD
+=======
+import  sun.audio.*;
+>>>>>>> origin/master
 
 public class WindowController {
 	
 	private WindowView view;
 	private MenuBarView bar;
 	private GameController gameController;
+<<<<<<< HEAD
 	private ArrayList<Account> accounts;
 			
 	private GamePanel hPanel;
 	private MainMenuPanel mPanel;
 	private HighscoresPanel scorePanel;
+=======
+	private ArrayList accounts;
+			
+	private GamePanel hPanel;
+	private MainMenuPanel mPanel;
+	private HighscoresPanel sPanel;
+>>>>>>> origin/master
 	private boolean mute;
 	
 	private Icon userIcon;
@@ -47,7 +65,16 @@ public class WindowController {
 //			e1.printStackTrace();
 //		}
 
+<<<<<<< HEAD
+=======
 		
+		
+		bar = new MenuBarView(new Account("Gast","Test"));
+		bar.getSound().setIcon(soundIcon[0]);
+>>>>>>> origin/master
+		
+		bar = new MenuBarView(new Account("Gast","Test"));
+		bar.getSound().setIcon(soundIcon[0]);
 		
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
@@ -58,8 +85,13 @@ public class WindowController {
 		this.hPanel = view.getGamePanel();
 		this.mPanel = view.getMenuPanel();
 		this.userIcon = new ImageIcon("Shift/images/userIcon.png");
+<<<<<<< HEAD
 		this.accounts = new ArrayList<Account>();
 		//wthis.sPanel = new HighscoresPanel(this.accounts);
+=======
+		this.accounts = new ArrayList();
+		this.sPanel = new HighscoresPanel(this.accounts);
+>>>>>>> origin/master
 		this.gameController = new GameController(this.view,this);
 		
 		
@@ -67,11 +99,17 @@ public class WindowController {
 				
 		mPanel.getStartNewGame().addActionListener(l -> {
 				gameController.getSoundBox().select();
+<<<<<<< HEAD
 				gameController.getSoundBox().start();
 				hPanel = new GamePanel(); 
 				view.setGamePanel(hPanel);
 				this.gameController.initGame();
 				this.bar.setAccount(new Account(bar.getPlayerAccount().getName(),"Test"));
+=======
+				hPanel = new GamePanel(); 
+				view.setGamePanel(hPanel);
+				this.gameController.initGame();
+>>>>>>> origin/master
 		});
 		
 		mPanel.getViewScores().addActionListener(l-> {
@@ -91,6 +129,10 @@ public class WindowController {
 		
 		bar.getViewScore().addActionListener(l->{
 			this.gameController.pauseGame();
+<<<<<<< HEAD
+=======
+			this.accounts.add(bar.getPlayerAccount());
+>>>>>>> origin/master
 			showScoreList();
 //			this.sPanel = new HighscoresPanel(this.accounts);
 //			view.setHighscoresPanel(this.sPanel);
@@ -170,12 +212,24 @@ public class WindowController {
 		if(mute) {
 			bar.getSound().setIcon(soundIcon[0]);
 			mute = false;
+<<<<<<< HEAD
 			gameController.getSoundBox().toggleSound(mute);
+=======
+
+			gameController.getSoundBox().toggleSound(mute);
+
+>>>>>>> origin/master
 			bar.setVisible(true);
 		} else {
 			bar.getSound().setIcon(soundIcon[1]);
 			mute = true;
+<<<<<<< HEAD
 			gameController.getSoundBox().toggleSound(mute);
+=======
+
+			gameController.getSoundBox().toggleSound(mute);
+
+>>>>>>> origin/master
 			bar.setVisible(true);
 		}
 		view.requestFocus();
@@ -214,8 +268,20 @@ public class WindowController {
 			if(this.gameController!=null){
 				this.gameController.pauseGame();
 			}
+<<<<<<< HEAD
 			gameController.getSoundBox().stop();
 			scoreDialog.dispose();
+=======
+			scoreDialog.dispose();
+		});
+		
+		scorePanel.getBackToGame().addActionListener(l-> {
+			gameController.getSoundBox().select();
+			this.gameController.resumeGame();
+			scoreDialog.dispose();			
+			scoreDialog.dispose();
+			this.gameController.resumeGame();
+>>>>>>> origin/master
 		});
 		
 		scorePanel.getBackToGame().addActionListener(l-> {
