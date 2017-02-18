@@ -51,7 +51,13 @@ public class WindowController {
 //		}
 
 		
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
+		
+		bar = new MenuBarView(new Account("Gast","Test"));
+		bar.getSound().setIcon(soundIcon[0]);
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
 		bar.getSound().setIcon(soundIcon[0]);
@@ -172,12 +178,18 @@ public class WindowController {
 		if(mute) {
 			bar.getSound().setIcon(soundIcon[0]);
 			mute = false;
+<<<<<<< HEAD
 			gameController.getSoundBox().toggleSound(mute);
+=======
+>>>>>>> origin/master
 			bar.setVisible(true);
 		} else {
 			bar.getSound().setIcon(soundIcon[1]);
 			mute = true;
+<<<<<<< HEAD
 			gameController.getSoundBox().toggleSound(mute);
+=======
+>>>>>>> origin/master
 			bar.setVisible(true);
 		}
 	}
@@ -215,9 +227,15 @@ public class WindowController {
 		});
 		
 		scorePanel.getBackToGame().addActionListener(l-> {
+<<<<<<< HEAD
 			gameController.getSoundBox().select();
 			this.gameController.resumeGame();
 			scoreDialog.dispose();			
+=======
+			scoreDialog.dispose();
+			this.gameController.resumeGame();
+			
+>>>>>>> origin/master
 		});
 		
 	}

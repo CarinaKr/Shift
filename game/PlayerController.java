@@ -36,7 +36,11 @@ public class PlayerController implements KeyListener {
 	 * @param player - Expects a PlayerModel to control
 	 * @param felder - Expects the fields from the Game for checking the Collision
 	 */
+<<<<<<< HEAD
 	public PlayerController(PlayerModel player, Feld[][] felder, SoundBox soundBox) {
+=======
+	public PlayerController(PlayerModel player, Feld[][] felder) {
+>>>>>>> origin/master
 		this.player = player;
 		this.felder = felder;
 		this.soundBox = soundBox;
@@ -196,7 +200,10 @@ public class PlayerController implements KeyListener {
 			} 
 		}
 		
+<<<<<<< HEAD
 		if (moveDir[2] && this.player.getGrounded()) soundBox.jump();
+=======
+>>>>>>> origin/master
 		if (downYToObstacle == 0 && moveDir[3]) {
 			moveDir[3] = false;
 			this.player.setJumpHeight(50);

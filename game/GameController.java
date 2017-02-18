@@ -47,8 +47,11 @@ public class GameController implements KeyListener{
 	private boolean zShift;
 	private double zTime;
 	
+<<<<<<< HEAD
 	private SoundBox soundBox;
 	
+=======
+>>>>>>> origin/master
 	/**<dd>
 	 * <h3><i> GameController </i></h3>
 	 * <p>
@@ -64,12 +67,30 @@ public class GameController implements KeyListener{
 		hView.addKeyListener(this);
 		soundBox = new SoundBox();
 		hLevels=new Levels();
+<<<<<<< HEAD
+=======
+//		hBackground=hLevels.getBackground(zLevelNummer);
+//		hFelder=hLevels.getLevel(zLevelNummer, zVersion);
+>>>>>>> origin/master
 		hPlayer=new PlayerModel(hLevels.getPlayerPosition(zLevelNummer)[0]*zSize,hLevels.getPlayerPosition(zLevelNummer)[1]*zSize,14,40);
 		hPController=new PlayerController(hPlayer,hFelder, soundBox);
 		hView.addKeyListener(hPController);
+<<<<<<< HEAD
 		
 		hTimerTurn=new Timer(10, e->turn());
 		hTimer=new Timer(10, e->update());
+=======
+//		zDoor=hLevels.getDoor(zLevelNummer,zVersion);
+//		zKey[0]=hLevels.getKey1(zLevelNummer,zVersion);
+//		zPlatform[0]=hLevels.getPlatform(zLevelNummer,zVersion,0,0);
+//		zSpikes=hLevels.getSpikes(zLevelNummer, zVersion);
+//		
+		hTimerTurn=new Timer(10, e->turn());
+		hTimer=new Timer(10, e->update());
+//		hTimer.start();
+//		
+//		nextLevel();
+>>>>>>> origin/master
 	}
 
 	/**<dd>
@@ -298,7 +319,11 @@ public class GameController implements KeyListener{
 			zLevelNummer = pLevelNummer;
 			hTimer.start();
 		}
+<<<<<<< HEAD
 		else if(pLevelNummer==3)
+=======
+		else if(pLevelNummer==2)
+>>>>>>> origin/master
 		{
 			//TODO:
 			//Game Over Funktion, Hausptmenü?
@@ -344,6 +369,7 @@ public class GameController implements KeyListener{
 	}
 	
 	/**<dd>
+<<<<<<< HEAD
 	 * <h3><i> getSoundBox </i></h3>
 	 * <p>
 	 * <code>{@code public getSoundBox()}</code>
@@ -357,6 +383,8 @@ public class GameController implements KeyListener{
 	}
 	
 	/**<dd>
+=======
+>>>>>>> origin/master
 	 * <h3><i> newColor </i></h3>
 	 * <p>
 	 * <code>{@code public newColor()}</code>
