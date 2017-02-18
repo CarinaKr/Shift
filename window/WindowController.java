@@ -1,23 +1,26 @@
 package window;
 
-import game.*;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.ButtonModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import account.Account;
-import menu.*;
+import game.GameController;
+import game.GamePanel;
+import menu.HighscoresPanel;
+import menu.MainMenuPanel;
+
+import  sun.audio.*;
 
 public class WindowController {
 	
@@ -25,18 +28,33 @@ public class WindowController {
 	private MenuBarView bar;
 	private GameController gameController;
 	private ArrayList accounts;
-	
+			
 	private GamePanel hPanel;
 	private MainMenuPanel mPanel;
 	private HighscoresPanel sPanel;
+	private boolean mute;
 	
 	private Icon userIcon;
+	private Icon[] soundIcon = {new ImageIcon("Shift/images/Lautsprecher.png"),new ImageIcon("Shift/images/Lautsprecher2.png")};
 	
 	
 	public WindowController(){
 		
-		bar = new MenuBarView(new Account("Gast","Test"));
+//		InputStream in;
+//		try {
+//			in = new FileInputStream("Shift/sounds/sound.wav");
+//			AudioStream as = new AudioStream(in); 
+//			AudioPlayer.player.start(as); 
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
 		
+		
+		
+		bar = new MenuBarView(new Account("Gast","Test"));
+		bar.getSound().setIcon(soundIcon[0]);
 		
 		this.view = new WindowView(bar);
 		view.setTitle("Shift");
@@ -45,20 +63,21 @@ public class WindowController {
 		this.userIcon = new ImageIcon("Shift/images/userIcon.png");
 		this.accounts = new ArrayList();
 		this.sPanel = new HighscoresPanel(this.accounts);
+		this.gameController = new GameController(this.view,this);
 		
 		
 				
 				
 		mPanel.getStartNewGame().addActionListener(l -> {
+				gameController.getSoundBox().select();
 				hPanel = new GamePanel(); 
 				view.setGamePanel(hPanel);
-				
-				System.out.println("hi");
-				gameController = new GameController(this.view,this);
+				this.gameController.initGame();
 		});
 		
 		mPanel.getViewScores().addActionListener(l-> {
 			//view.setHighscoresPanel(sPanel);
+			gameController.getSoundBox().select();
 			showScoreList();
 			
 		});
@@ -72,6 +91,7 @@ public class WindowController {
 		
 		
 		bar.getViewScore().addActionListener(l->{
+			this.gameController.pauseGame();
 			this.accounts.add(bar.getPlayerAccount());
 			showScoreList();
 //			this.sPanel = new HighscoresPanel(this.accounts);
@@ -80,7 +100,7 @@ public class WindowController {
 		bar.getMain().addActionListener(l->{
 			view.setMenuPanel(mPanel);
 			if(this.gameController!=null){
-				this.gameController.stopTimer();
+				this.gameController.pauseGame();
 			}
 		});
 		bar.getRestart().addActionListener(e->{
@@ -100,8 +120,8 @@ public class WindowController {
 			String newPassword = (String)JOptionPane.showInputDialog(frame, "New Password:","Change your password!", JOptionPane.PLAIN_MESSAGE,userIcon, null, "Your new password");
 			bar.getPlayerAccount().setPassword(newPassword);
 		});
-		
-		
+		bar.getSound().addActionListener(l->toggleSound());
+		bar.getExit().addActionListener(l->System.exit(0));
 		
 		
 		
@@ -147,6 +167,21 @@ public class WindowController {
 		
 	}
 	
+	private void toggleSound() {
+		// TODO Auto-generated method stub
+		if(mute) {
+			bar.getSound().setIcon(soundIcon[0]);
+			mute = false;
+			gameController.getSoundBox().toggleSound(mute);
+			bar.setVisible(true);
+		} else {
+			bar.getSound().setIcon(soundIcon[1]);
+			mute = true;
+			gameController.getSoundBox().toggleSound(mute);
+			bar.setVisible(true);
+		}
+	}
+
 	public void setTime(double pTime)
 	{
 		bar.setTime(pTime);
@@ -171,10 +206,18 @@ public class WindowController {
 		scoreDialog.setVisible(true);
 		
 		scorePanel.getBackToMain().addActionListener(l-> {
+			gameController.getSoundBox().select();
 			view.setMenuPanel(mPanel);
 			if(this.gameController!=null){
-				this.gameController.stopTimer();
+				this.gameController.pauseGame();
 			}
+			scoreDialog.dispose();
+		});
+		
+		scorePanel.getBackToGame().addActionListener(l-> {
+			gameController.getSoundBox().select();
+			this.gameController.resumeGame();
+			scoreDialog.dispose();			
 		});
 		
 	}

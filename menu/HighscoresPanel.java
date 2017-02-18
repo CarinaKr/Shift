@@ -74,4 +74,7 @@ public class HighscoresPanel extends JPanel{
 		return backToMain;
 	}
 
+	public JButton getBackToGame() {
+		return backToGame;
+	}
 }
