@@ -21,7 +21,7 @@ public class WindowView extends JFrame{
 	private HighscoresPanel sPanel;
 	
 	private JButton mStartNewGame;
-	private JButton mLogin;
+	private JButton mCredits;
 	private JButton mHighscores;
 	private MenuBarView bar;
 	
@@ -32,11 +32,10 @@ public class WindowView extends JFrame{
 		
 		
 		this.mStartNewGame = mPanel.getStartNewGame();
-		this.mLogin = mPanel.getLogin();
+		this.mCredits = mPanel.getCredits();
 		this.mHighscores = mPanel.getViewScores();
 		
 		setLayout(new BorderLayout());
-		//bar = new MenuBarView(new Account("Test","Test"));
 		this.bar=bar;
 		add(bar, BorderLayout.NORTH);
 		add(mPanel, BorderLayout.CENTER);
@@ -111,8 +110,8 @@ public class WindowView extends JFrame{
 		return mStartNewGame;
 	}
 	
-	public JButton getMLogin() {
-		return mLogin;
+	public JButton getMCredits() {
+		return mCredits;
 	}
 	
 	public JButton getMHighscores() {

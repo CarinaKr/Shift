@@ -2,12 +2,8 @@ package menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,25 +13,26 @@ import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.Border;
-
-import game.*;
 
 public class MainMenuPanel extends JPanel{
 	
 	private JButton startNewGame;
-	private JButton login;
+	private JButton credit;
 	private JButton viewScores;
 	
 	private Icon startNewGameIcon;
-	private Icon loginIcon;
+	private Icon creditIcon;
 	private Icon viewScoresTryIcon;
-	private Image backgroundGraphics;
+	private Image backgroundGraphics,mainMenuGraphics,creditGraphics;
 	private Image startNewGameGraphics;
 	private Image loginGraphics;
 	private Image viewScoresGraphics;
+	Box menuButtons;
+	
+	private Timer creditTimer;
 	
 	public MainMenuPanel(){
 		
@@ -43,7 +40,9 @@ public class MainMenuPanel extends JPanel{
 		this.setBackground(Color.white);
 		
 		try{
-			this.backgroundGraphics = ImageIO.read(new File("Shift/images/background.png"));
+			this.mainMenuGraphics = ImageIO.read(new File("Shift/images/background.png"));
+			this.creditGraphics=ImageIO.read(new File("Shift/images/credits.png"));
+			this.backgroundGraphics=mainMenuGraphics;
 //			this.login = ImageIO.read(new File("C:/Users/SvenM/Desktop/UNI/P2/Shift/src/Bilder/button1.png"));
 //			this.startNewGame = ImageIO.read(new File("C:/Users/SvenM/Desktop/UNI/P2/Shift/src/Bilder/button.png"));
 //			this.viewScores = ImageIO.read(new File("C:/Users/SvenM/Desktop/UNI/P2/Shift/src/Bilder/button2.png"));
@@ -53,7 +52,7 @@ public class MainMenuPanel extends JPanel{
 		
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		
-		Box menuButtons = Box.createVerticalBox();
+		menuButtons = Box.createVerticalBox();
 		
 		startNewGame = new JButton();
 		startNewGame.setAlignmentX(CENTER_ALIGNMENT);
@@ -62,14 +61,6 @@ public class MainMenuPanel extends JPanel{
 		startNewGame.setFocusPainted(true); 
 		startNewGame.setOpaque(false);
 		
-		login = new JButton();
-		login.setBounds(startNewGame.getBounds());
-		login.setAlignmentX(CENTER_ALIGNMENT);
-		login.setContentAreaFilled(false); 
-        login.setFocusPainted(false); 
-        login.setOpaque(false);
-        login.setBorder(emptyBorder);
-		
 		viewScores = new JButton();
 		viewScores.setBounds(startNewGame.getBounds());
 		viewScores.setAlignmentX(CENTER_ALIGNMENT);
@@ -77,32 +68,33 @@ public class MainMenuPanel extends JPanel{
 		viewScores.setContentAreaFilled(false); 
         viewScores.setFocusPainted(true); 
         viewScores.setOpaque(false);
+        
+        credit = new JButton();
+		credit.setBounds(startNewGame.getBounds());
+		credit.setAlignmentX(CENTER_ALIGNMENT);
+		credit.setContentAreaFilled(false); 
+        credit.setFocusPainted(false); 
+        credit.setOpaque(false);
+        credit.setBorder(emptyBorder);
 		
 		startNewGameIcon = new ImageIcon("Shift/images/Button.png", "startNewGame");
-		loginIcon = new ImageIcon("Shift/images/Button1.png", "Login");
+		creditIcon = new ImageIcon("Shift/images/Button1.png", "credits");
 		viewScoresTryIcon = new ImageIcon("Shift/images/Button2.png", "highscores");
 		
-		
-		login.setIcon(loginIcon);
+		credit.setIcon(creditIcon);
 		startNewGame.setIcon(startNewGameIcon);
 		viewScores.setIcon(viewScoresTryIcon);
-		
-		
-		
-		
 		
 		menuButtons.add(Box.createVerticalStrut(200));
 		menuButtons.add(startNewGame);
 		menuButtons.add(Box.createVerticalStrut(50));
-		menuButtons.add(login);
-		menuButtons.add(Box.createVerticalStrut(50));
 		menuButtons.add(viewScores);
-		
-		
-		
-		
+		menuButtons.add(Box.createVerticalStrut(50));
+		menuButtons.add(credit);
 		
 		this.add(menuButtons, BorderLayout.CENTER);
+		
+		creditTimer=new Timer(10000,e->backToMain());
 	}
 	
 	
@@ -116,8 +108,8 @@ public class MainMenuPanel extends JPanel{
 		return viewScores;
 	}
 	
-	public JButton getLogin() {
-		return login;
+	public JButton getCredits() {
+		return credit;
 	}
 	
 	@Override
@@ -125,10 +117,19 @@ public class MainMenuPanel extends JPanel{
 		
 		super.paintComponent(g);
 		g.drawImage(this.backgroundGraphics,0,0,this);
-//		int buttonsHeight = 100 + login.getHeight(getParent())+login.getHeight(getParent())+startNewGame.getHeight(getParent());
-//		g.drawImage(this.startNewGame, 300 - startNewGame.getWidth(getParent())/2 ,300 - buttonsHeight/2 , this);
-//		g.drawImage(this.login, 300 - login.getWidth(getParent())/2 ,300 - buttonsHeight/2 +login.getHeight(getParent())+50 , this);
-//		g.drawImage(this.viewScores, 300 - viewScores.getWidth(getParent())/2 , 300 - buttonsHeight/2 +login.getHeight(getParent())+ 50 + viewScores.getHeight(getParent()) +50 , this);
+	}
+	
+	public void showCredits()
+	{
+		creditTimer.start();
+		this.backgroundGraphics=creditGraphics;
+		menuButtons.setVisible(false);
+	}
+	public void backToMain()
+	{
+		creditTimer.stop();
+		this.backgroundGraphics=mainMenuGraphics;
+		menuButtons.setVisible(true);
 	}
 	
 }

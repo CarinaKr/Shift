@@ -81,6 +81,10 @@ public class WindowController {
 				this.bar.setAccount(new Account(bar.getPlayerAccount().getName(),"Test"));
 		});
 		
+		mPanel.getCredits().addActionListener(l->{
+			mPanel.showCredits();
+		});
+		
 		mPanel.getViewScores().addActionListener(l-> {
 			gameController.getSoundBox().select();
 			showScoreList();
@@ -130,14 +134,14 @@ public class WindowController {
 		
 		});
 		
-		mPanel.getLogin().getModel().addChangeListener(new ChangeListener() {
+		mPanel.getCredits().getModel().addChangeListener(new ChangeListener() {
 		    @Override
 		    public void stateChanged(ChangeEvent e) {
 		        ButtonModel model = (ButtonModel) e.getSource();
 		        if (model.isRollover()) {
-		            mPanel.getLogin().setIcon(new ImageIcon("Shift/images/invertedLogin.png"));
+		            mPanel.getCredits().setIcon(new ImageIcon("Shift/images/invertedCredits.png"));
 		        } else {
-		        	mPanel.getLogin().setIcon(new ImageIcon("Shift/images/Button1.png", "Login"));
+		        	mPanel.getCredits().setIcon(new ImageIcon("Shift/images/Button1.png", "Login"));
 		        }
 		    }
 		
@@ -160,7 +164,6 @@ public class WindowController {
 	}
 	
 	private void toggleSound() {
-		// TODO Auto-generated method stub
 		if(mute) {
 			bar.getSound().setIcon(soundIcon[0]);
 			mute = false;
