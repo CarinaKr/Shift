@@ -40,10 +40,10 @@ public class MenuBarView extends JMenuBar{
 		this.one =	new JMenu("Game");
 		restart = new JMenuItem("Restart current level");
 		one.add(restart);
-		load = new JMenuItem("Load");
-		one.add(load);
-		save = new JMenuItem("Save");
-		one.add(save);
+//		load = new JMenuItem("Load");
+//		one.add(load);
+//		save = new JMenuItem("Save");
+//		one.add(save);
 		main = new JMenuItem("Main Menu");
 		one.add(main);
 		exit = new JMenuItem("Exit");
@@ -53,20 +53,20 @@ public class MenuBarView extends JMenuBar{
 		this.accountMenu = new JMenu(accountName);
 		viewScore = new JMenuItem("Show score");
 		changeUserName = new JMenuItem("Change Username");
-		changePassword = new JMenuItem("Change password");
-		logout = new JMenuItem("Logout");
+//		changePassword = new JMenuItem("Change password");
+//		logout = new JMenuItem("Logout");
 		accountMenu.add(viewScore);
 		accountMenu.add(changeUserName);
-		accountMenu.add(changePassword);
-		accountMenu.add(logout);
+//		accountMenu.add(changePassword);
+//		accountMenu.add(logout);
 		
 		this.options = new JMenu("Options");
-		 language = new JMenuItem("Language");
-		options.add(language);
+//		 language = new JMenuItem("Language");
+//		options.add(language);
 		 color = new JMenuItem("Color");
 		options.add(color);
-		 controls = new JMenuItem("Controls");
-		options.add(controls);
+//		 controls = new JMenuItem("Controls");
+//		options.add(controls);
 		
 		this.sound = new JButton();
 		this.sound.setPreferredSize(new Dimension(20,17));

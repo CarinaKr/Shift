@@ -111,11 +111,7 @@ public class WindowController {
 			bar.setUserName(newUserName);
 			
 		});
-		bar.getChangePassword().addActionListener(l->{
-			JFrame frame = new JFrame("test");
-			String newPassword = (String)JOptionPane.showInputDialog(frame, "New Password:","Change your password!", JOptionPane.PLAIN_MESSAGE,userIcon, null, "Your new password");
-			bar.getPlayerAccount().setPassword(newPassword);
-		});
+
 		bar.getSound().addActionListener(l->toggleSound());
 		bar.getExit().addActionListener(l->System.exit(0));
 		
