@@ -38,11 +38,7 @@ public class SoundBox {
 					ais = AudioSystem.getAudioInputStream(new File("Shift/sounds/Open5.wav"));
 					break;
 				case 4:
-<<<<<<< HEAD
 					ais = AudioSystem.getAudioInputStream(new File("Shift/sounds/Push.wav"));
-=======
-					ais = AudioSystem.getAudioInputStream(new File("Shift/sounds/Miss.wav"));
->>>>>>> origin/master
 					break;
 				case 5:
 					ais = AudioSystem.getAudioInputStream(new File("Shift/sounds/Victory1.wav"));
@@ -63,15 +59,7 @@ public class SoundBox {
 				gameMusic[i] = (Clip) AudioSystem.getLine(info[i]);
 				gameMusic[i].open(af, audio, 0, audioSize);
 				ais.close();
-<<<<<<< HEAD
 			}			
-=======
-			}
-			
-			gameMusic[0].start();
-			gameMusic[0].loop(Clip.LOOP_CONTINUOUSLY);
-			
->>>>>>> origin/master
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +78,6 @@ public class SoundBox {
 		}
 	}
 	
-<<<<<<< HEAD
 	public void start() {
 		if(!mute){
 			gameMusic[0].start();
@@ -103,8 +90,6 @@ public class SoundBox {
 		gameMusic[0].setFramePosition(0);
 	}
 	
-=======
->>>>>>> origin/master
 	public void jump() {
 		if(!mute) {
 			gameMusic[1].start();
@@ -137,11 +122,8 @@ public class SoundBox {
 		if(!mute) {
 			gameMusic[0].stop();
 			gameMusic[5].start();
-<<<<<<< HEAD
 			gameMusic[5].setFramePosition(0);
 			gameMusic[0].setFramePosition(0);
-=======
->>>>>>> origin/master
 		}
 	}
 	

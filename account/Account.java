@@ -1,7 +1,13 @@
 package account;
 
-public class Account implements Comparable<Account> {
+import java.io.Serializable;
+
+public class Account implements Comparable<Account>,Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 18022017;
 	private String userName;
 	private String password;
 	private double time;

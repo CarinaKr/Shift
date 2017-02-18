@@ -1,11 +1,10 @@
 package window;
 
-<<<<<<< HEAD
-=======
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
->>>>>>> origin/master
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.ButtonModel;
@@ -24,58 +23,25 @@ import game.GamePanel;
 import menu.HighscoresPanel;
 import menu.MainMenuPanel;
 
-<<<<<<< HEAD
-=======
-import  sun.audio.*;
->>>>>>> origin/master
 
 public class WindowController {
 	
 	private WindowView view;
 	private MenuBarView bar;
 	private GameController gameController;
-<<<<<<< HEAD
 	private ArrayList<Account> accounts;
 			
 	private GamePanel hPanel;
 	private MainMenuPanel mPanel;
 	private HighscoresPanel scorePanel;
-=======
-	private ArrayList accounts;
-			
-	private GamePanel hPanel;
-	private MainMenuPanel mPanel;
-	private HighscoresPanel sPanel;
->>>>>>> origin/master
 	private boolean mute;
 	
 	private Icon userIcon;
 	private Icon[] soundIcon = {new ImageIcon("Shift/images/Lautsprecher.png"),new ImageIcon("Shift/images/Lautsprecher2.png")};
 	
+	private String zFile="Shift/menu/highscore.txt";
 	
-	public WindowController(){
-		
-//		InputStream in;
-//		try {
-//			in = new FileInputStream("Shift/sounds/sound.wav");
-//			AudioStream as = new AudioStream(in); 
-//			AudioPlayer.player.start(as); 
-//		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-
-<<<<<<< HEAD
-=======
-		
-		
-		bar = new MenuBarView(new Account("Gast","Test"));
-		bar.getSound().setIcon(soundIcon[0]);
->>>>>>> origin/master
-		
-		bar = new MenuBarView(new Account("Gast","Test"));
-		bar.getSound().setIcon(soundIcon[0]);
-		
+	public WindowController(){		
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
 		bar.getSound().setIcon(soundIcon[0]);
@@ -85,63 +51,49 @@ public class WindowController {
 		this.hPanel = view.getGamePanel();
 		this.mPanel = view.getMenuPanel();
 		this.userIcon = new ImageIcon("Shift/images/userIcon.png");
-<<<<<<< HEAD
 		this.accounts = new ArrayList<Account>();
-		//wthis.sPanel = new HighscoresPanel(this.accounts);
-=======
-		this.accounts = new ArrayList();
-		this.sPanel = new HighscoresPanel(this.accounts);
->>>>>>> origin/master
+		File file=new File(zFile);
+		if(file.exists())
+		{
+			try(FileInputStream fis=new FileInputStream(zFile);
+					ObjectInputStream ois=new ObjectInputStream(fis))
+			{
+				Object object=ois.readObject();
+				if(object instanceof ArrayList)
+				{
+					this.accounts=(ArrayList)object;
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 		this.gameController = new GameController(this.view,this);
 		
 		
-				
-				
 		mPanel.getStartNewGame().addActionListener(l -> {
 				gameController.getSoundBox().select();
-<<<<<<< HEAD
 				gameController.getSoundBox().start();
 				hPanel = new GamePanel(); 
 				view.setGamePanel(hPanel);
 				this.gameController.initGame();
 				this.bar.setAccount(new Account(bar.getPlayerAccount().getName(),"Test"));
-=======
-				hPanel = new GamePanel(); 
-				view.setGamePanel(hPanel);
-				this.gameController.initGame();
->>>>>>> origin/master
 		});
 		
 		mPanel.getViewScores().addActionListener(l-> {
-			//view.setHighscoresPanel(sPanel);
 			gameController.getSoundBox().select();
 			showScoreList();
 			
 		});
 		
-//		sPanel.getBackToMain().addActionListener(l-> {
-//			view.setMenuPanel(mPanel);
-//			if(this.gameController!=null){
-//				this.gameController.stopTimer();
-//			}
-//		});
-		
 		
 		bar.getViewScore().addActionListener(l->{
 			this.gameController.pauseGame();
-<<<<<<< HEAD
-=======
-			this.accounts.add(bar.getPlayerAccount());
->>>>>>> origin/master
 			showScoreList();
-//			this.sPanel = new HighscoresPanel(this.accounts);
-//			view.setHighscoresPanel(this.sPanel);
 		});
 		bar.getMain().addActionListener(l->{
-			view.setMenuPanel(mPanel);
-			if(this.gameController!=null){
-				this.gameController.pauseGame();
-			}
+			toMainMenu();
 		});
 		bar.getRestart().addActionListener(e->{
 			gameController.resetLevel(gameController.getLevel());
@@ -212,24 +164,12 @@ public class WindowController {
 		if(mute) {
 			bar.getSound().setIcon(soundIcon[0]);
 			mute = false;
-<<<<<<< HEAD
 			gameController.getSoundBox().toggleSound(mute);
-=======
-
-			gameController.getSoundBox().toggleSound(mute);
-
->>>>>>> origin/master
 			bar.setVisible(true);
 		} else {
 			bar.getSound().setIcon(soundIcon[1]);
 			mute = true;
-<<<<<<< HEAD
 			gameController.getSoundBox().toggleSound(mute);
-=======
-
-			gameController.getSoundBox().toggleSound(mute);
-
->>>>>>> origin/master
 			bar.setVisible(true);
 		}
 		view.requestFocus();
@@ -263,25 +203,8 @@ public class WindowController {
 		else scorePanel.getBackToGame().setEnabled(true);
 		
 		scorePanel.getBackToMain().addActionListener(l-> {
-			gameController.getSoundBox().select();
-			view.setMenuPanel(mPanel);
-			if(this.gameController!=null){
-				this.gameController.pauseGame();
-			}
-<<<<<<< HEAD
-			gameController.getSoundBox().stop();
+			toMainMenu();
 			scoreDialog.dispose();
-=======
-			scoreDialog.dispose();
-		});
-		
-		scorePanel.getBackToGame().addActionListener(l-> {
-			gameController.getSoundBox().select();
-			this.gameController.resumeGame();
-			scoreDialog.dispose();			
-			scoreDialog.dispose();
-			this.gameController.resumeGame();
->>>>>>> origin/master
 		});
 		
 		scorePanel.getBackToGame().addActionListener(l-> {
@@ -297,6 +220,16 @@ public class WindowController {
 		scoreDialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		scoreDialog.toFront();
 		
+		saveHighscore();
+	}
+
+	private void toMainMenu() {	
+		gameController.getSoundBox().select();
+		view.setMenuPanel(mPanel);
+		if(this.gameController!=null){
+			this.gameController.pauseGame();
+		}
+		gameController.getSoundBox().stop();
 	}
 
 	public HighscoresPanel getScorePanel() {
@@ -308,5 +241,19 @@ public class WindowController {
 	}
 	public MenuBarView getBar() {
 		return bar;
+	}
+	
+	public void saveHighscore()
+	{
+		try(FileOutputStream fos=new FileOutputStream(new File(zFile));
+				ObjectOutputStream oos=new ObjectOutputStream(fos))
+		{
+			oos.writeObject(this.accounts);
+			oos.flush();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
