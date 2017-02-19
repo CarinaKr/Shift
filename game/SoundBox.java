@@ -11,6 +11,14 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * 
+ * @author Kevin 
+ * <p>
+ * <h3><i> SoundBox </i></h3>
+ * This class contains all the sounds implemented in the game and the methods
+ * to start/stop them. It is managed by {@link GameController}.
+ */
 public class SoundBox {
 	
 	private AudioInputStream ais;
@@ -21,6 +29,13 @@ public class SoundBox {
 	private Clip[] gameMusic = new Clip[8];
 	private boolean mute;
 	
+	/**<dd>
+	 * <h3><i> SoundBox </i></h3>
+	 * <p>
+	 * <code>{@code public SoundBox()}</code>
+	 * </p>
+	 * Creates a new SoundBox object, loading all the sounds into gameMusic[] 
+	 */
 	public SoundBox() {
 		try {
 			for(int i = 0; i < 8; i++) {
@@ -66,6 +81,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> toggleSound(boolean mute) </i></h3>
+	 * <p>
+	 * <code>{@code public void toggleSound(boolean mute)}</code>
+	 * </p>
+	 * Depending on the mute status, the sound is either set active or inactive. 
+	 * @param mute - used to toggle the sound. false to activate, true to deactivate.
+	 */
 	public void toggleSound(boolean mute) {
 		if(mute) {
 			this.mute = mute;
@@ -78,6 +101,13 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> start() </i></h3>
+	 * <p>
+	 * <code>{@code public void start()}</code>
+	 * </p>
+	 * Starts the background music, if not mute.
+	 */
 	public void start() {
 		if(!mute){
 			gameMusic[0].start();
@@ -85,11 +115,26 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> stop() </i></h3>
+	 * <p>
+	 * <code>{@code public void stop()}</code>
+	 * </p>
+	 * Stops the background music and resets the song.
+	 */
 	public void stop() {
 		gameMusic[0].stop();
 		gameMusic[0].setFramePosition(0);
 	}
 	
+	/**<dd>
+	 * <h3><i> jump() </i></h3>
+	 * <p>
+	 * <code>{@code public void jump()}</code>
+	 * </p>
+	 * Sound for a simple jump. Resets the sound after it has been played.
+	 * Only played if not muted.
+	 */
 	public void jump() {
 		if(!mute) {
 			gameMusic[1].start();
@@ -97,6 +142,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> collect() </i></h3>
+	 * <p>
+	 * <code>{@code public void collect()}</code>
+	 * </p>
+	 * Sound for picking up the keys. Resets the sound after it has been played.
+	 * Only played if not muted.
+	 */
 	public void collect() {
 		if(!mute) {
 			gameMusic[2].start();
@@ -104,6 +157,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> door() </i></h3>
+	 * <p>
+	 * <code>{@code public void door()}</code>
+	 * </p>
+	 * Sound for a simple door. Resets the sound after it has been played.
+	 * Only played if not muted.
+	 */
 	public void door() {
 		if(!mute) {
 			gameMusic[3].start();
@@ -111,6 +172,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> shift() </i></h3>
+	 * <p>
+	 * <code>{@code public void shift()}</code>
+	 * </p>
+	 * Sound for shifting. Resets the sound after it has been played.
+	 * Only played if not muted.
+	 */
 	public void shift() {
 		if(!mute) {
 			gameMusic[4].start();
@@ -118,6 +187,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> victory() </i></h3>
+	 * <p>
+	 * <code>{@code public void victory()}</code>
+	 * </p>
+	 * Sound played, when the game is won. Resets the sound after it has been played.
+	 * Only played if not muted. Deactivates BGM.
+	 */
 	public void victory() {
 		if(!mute) {
 			gameMusic[0].stop();
@@ -127,6 +204,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> select() </i></h3>
+	 * <p>
+	 * <code>{@code public void select()}</code>
+	 * </p>
+	 * Sound for a selection in the main menu. Resets the sound after it has been played.
+	 * Only played if not muted.
+	 */
 	public void select() {
 		if(!mute) {
 			gameMusic[6].start();
@@ -134,6 +219,14 @@ public class SoundBox {
 		}
 	}
 	
+	/**<dd>
+	 * <h3><i> die() </i></h3>
+	 * <p>
+	 * <code>{@code public void die()}</code>
+	 * </p>
+	 * Deathsound. Resets the sound after it has been played.
+	 * Only played if not muted.
+	 */
 	public void die() {
 		if(!mute) {
 			gameMusic[7].start();

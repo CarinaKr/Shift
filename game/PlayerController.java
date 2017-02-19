@@ -15,15 +15,23 @@ import java.awt.event.KeyListener;
  */
 public class PlayerController implements KeyListener {
 	
+	//Player to control
 	private PlayerModel player;
 
+	//stores the information if the field is blocked or not. needed for collision check. 
 	private Feld[][] felder;
+	//borders of the playing field.
+	private final int LEFT_AND_UPPER_BORDER = 0;
+	private final int RIGHT_AND_BOTTOM_BORDER = 600;
 	
+	//used to control movement
 	private boolean moveDir[] = {false, false, false, true}; //left, right, up, down
 	private boolean wPressed = false;
+	//needed to check the collision on the x/y axis into the direction the player is moving. aniCount is used to manage the animation speed.
 	private int leftXToObstacle, rightXToObstacle, downYToObstacle, upYToObstacle, aniCount;
 	private final int TILESIZE = 40;
-	private SoundBox soundBox;
+	//used to call jump().
+	private SoundBox soundBox; 
 	
 	/**<dd>
 	 * <h3><i> PlayerController </i></h3>
@@ -117,7 +125,7 @@ public class PlayerController implements KeyListener {
 		if(this.player.getJumpHeight() <= 5) moveDir[2] = false;
 		
 		if (moveDir[0] && this.player.getxSpeed() <= 0) {
-			if (this.player.getXPos() - this.player.getPAINTING_OFFSET() > 0 ) {
+			if (this.player.getXPos() - this.player.getPAINTING_OFFSET() > this.LEFT_AND_UPPER_BORDER ) {
 				for(int x = 0; x < 2; x++) {
 					tmp = 0;
 					i = (int) (this.player.getXPos()) / TILESIZE;
@@ -126,8 +134,8 @@ public class PlayerController implements KeyListener {
 					while(this.felder[i][j].isAccessable()) {
 						tmp--;
 						i = (int) (this.player.getXPos() + tmp) / TILESIZE;
-						if (i < 0){
-							i = 0;
+						if (i < (felder.length-15)){
+							i = (felder.length-15);
 							break;
 						}
 					}
@@ -137,7 +145,7 @@ public class PlayerController implements KeyListener {
 			}
 		}
 		else if (moveDir[1] && this.player.getxSpeed() >= 0) {
-			if (this.player.getXPos() + this.player.getWidth() + this.player.getPAINTING_OFFSET() < 600) {
+			if (this.player.getXPos() + this.player.getWidth() + this.player.getPAINTING_OFFSET() < this.RIGHT_AND_BOTTOM_BORDER) {
 				for (int x = 0; x < 2; x++) {
 					tmp = 0;
 					i = (int) (this.player.getXPos() + this.player.getWidth()) / TILESIZE;
@@ -146,8 +154,8 @@ public class PlayerController implements KeyListener {
 					while(this.felder[i][j].isAccessable()) {
 						tmp++;
 						i = (int) (this.player.getXPos() + this.player.getWidth() + tmp) / TILESIZE;
-						if (i > 14) {
-							i = 14;
+						if (i > (felder.length-1)) {
+							i = (felder.length-1);
 							break;
 						}
 					}
@@ -158,7 +166,7 @@ public class PlayerController implements KeyListener {
 		
 		if (moveDir[2] && this.player.getySpeed() <= 0) {
 			moveDir[3] = false;
-			if (this.player.getYPos() > 0) {
+			if (this.player.getYPos() > this.LEFT_AND_UPPER_BORDER) {
 				for (int x = 0; x < 2; x++) {
 					tmp = 0;
 					i = (int) ((this.player.getXPos() + ((this.player.getWidth()-1)*x)) / TILESIZE);
@@ -167,8 +175,8 @@ public class PlayerController implements KeyListener {
 					while(this.felder[i][j].isAccessable()) {
 						tmp--;
 						j = (int) (this.player.getYPos() + tmp) / TILESIZE;
-						if (j < 0) {
-							j = 0;
+						if (j < (felder.length-15)) {
+							j = (felder.length-15);
 							break;
 						}
 					}
@@ -177,7 +185,7 @@ public class PlayerController implements KeyListener {
 			}
 		} 
 		else if (moveDir[3] && this.player.getySpeed() >= 0) {
-			if(this.player.getYPos() + this.player.getHeight() < 600) {	
+			if(this.player.getYPos() + this.player.getHeight() < this.RIGHT_AND_BOTTOM_BORDER) {	
 				for (int x = 0; x < 2; x++) {
 					tmp = 0;
 					i = (int) ((this.player.getXPos() + ((this.player.getWidth()-1)*x)) / TILESIZE);
@@ -186,8 +194,8 @@ public class PlayerController implements KeyListener {
 					while(this.felder[i][j].isAccessable()) {
 						tmp++;
 						j = (int) (this.player.getYPos() + this.player.getHeight() + tmp) / TILESIZE;
-						if (j > 14) {
-							j = 14;
+						if (j > (felder.length-1)) {
+							j = (felder.length-1);
 							break;
 						}
 					}

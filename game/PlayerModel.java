@@ -13,16 +13,21 @@ import javax.swing.ImageIcon;
  */
 
 public class PlayerModel {
+	//stores the information of the position and the width and height of the player.
 	private int xPos, yPos, width, height;
+	//The images are sprite sheets, this way its not necessary to reload a new file, instead
+	//one can simply renew the target area to paint (of the image).
 	private int[] coords = {26, 0, 52, 45}; //SourceX1, SourceY1, SourceX2, SourceY2
 	private Image[] charImg;
-	
+	private final int SPRITE_SIZE = 26;
+	//offset when painting the character, for correct hitboxes.
+	private final int PAINTING_OFFSET = 6;
+	//all the relevant data for the movement. floats for computing, ints for displaying.
 	private float xSpeed,ySpeed;
 	private int xTargetSpeed = 0;
 	private int yTargetSpeed = 5;
 	private final float ACCELARATION = 0.09f;
 	private final float J_ACC = 0.05f;
-	private final int PAINTING_OFFSET = 6;
 	private boolean isGrounded;
 	private int jumpHeight = 50;
 	
@@ -51,7 +56,25 @@ public class PlayerModel {
 		charImg[1] = new ImageIcon("Shift/images/StickySheetRot.png").getImage();
 		charImg[2] = new ImageIcon("Shift/images/StickySheetBlau.png").getImage();
 	}
-	
+	/**
+	 * <dd>
+	 * <h3><i> move(int leftXDist,int rightXDist, int botYDist, int topYDist, int aniCount) </i></h3>
+	 * <p>
+	 * <code>{@code public void move(int leftXDist,int rightXDist, int botYDist, int topYDist, int aniCount)} </code>
+	 * </p>
+	 * This method actually moves the player. It gets all the input and controls by the {@link PlayerController} and then only 
+	 * computes the movement. The direction is determing through the speed into the directions. E.g. if you ran left for some
+	 * time and want to change your direction, you'll first slide to the left a bit, because you've got force pushing you there.
+	 * Formula used is the "weighted averaging". Every 8 steps, another sprite is loaded to animate the running. Coords are then 
+	 * set to a new value, stepping 26 pixels (SRITE_SIZE) on the source image, except for reaching the border, it then is set to the beginning 
+	 * again. 
+	 * 
+	 * @param leftXDist
+	 * @param rightXDist
+	 * @param botYDist
+	 * @param topYDist
+	 * @param aniCount
+	 */
 	public void move(int leftXDist,int rightXDist, int botYDist, int topYDist, int aniCount) {
 		xSpeed = ACCELARATION * xTargetSpeed + (1-ACCELARATION) * xSpeed;
 		ySpeed = J_ACC * yTargetSpeed + (1-J_ACC) * ySpeed;
@@ -61,8 +84,8 @@ public class PlayerModel {
 			this.coords[1] = 0;
 			this.coords[3] = 45;
 			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((botYDist), ySpeed) == 0 || Math.max((botYDist), ySpeed) == 0)) {
-				this.coords[0] += 26;
-				this.coords[2] += 26;
+				this.coords[0] += this.SPRITE_SIZE;
+				this.coords[2] += this.SPRITE_SIZE;
 			} else if (this.coords[0] == 208) {
 				this.coords[0] = 0;
 				this.coords[2] = 26;
@@ -73,8 +96,8 @@ public class PlayerModel {
 			this.coords[1] = 56;
 			this.coords[3] = 101;
 			if(this.coords[0] < 208 && aniCount % 8 == 0 && (Math.min((botYDist), ySpeed) == 0 || Math.max((botYDist), ySpeed) == 0)) {
-				this.coords[0] += 26;
-				this.coords[2] += 26;
+				this.coords[0] += this.SPRITE_SIZE;
+				this.coords[2] += this.SPRITE_SIZE;
 			} else if (this.coords[0] == 208) {
 				this.coords[0] = 0;
 				this.coords[2] = 26;
