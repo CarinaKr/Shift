@@ -303,8 +303,6 @@ public class GameController implements KeyListener{
 		}
 		else if(pLevelNummer==3)
 		{
-			//TODO:
-			//Game Over Funktion, Hausptmenü?
 			soundBox.victory();
 			hWindowController.getAccounts().add(hWindowController.getBar().getPlayerAccount());
 			hWindowController.showScoreList();
