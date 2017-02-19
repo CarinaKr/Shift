@@ -24,6 +24,15 @@ import menu.HighscoresPanel;
 import menu.MainMenuPanel;
 
 
+/**<dd>
+* <h3><i> WindowController </i></h3>
+* The WindowController controls all the actions happening in the WindowView. It has methods to
+* switch between a GamePanel and a MainMenuPanel.
+* It also adds ActionListeners too the Buttons of the WindowView as well as the MenuBarView.
+ * @author Sven
+ *
+ */
+
 public class WindowController {
 	
 	private WindowView view;
@@ -41,6 +50,15 @@ public class WindowController {
 	
 	private String zFile="Shift/menu/highscore.txt";
 	
+	
+	/**<dd>
+	 * <h3><i> GameController </i></h3>
+	 * <p>
+	 * <code>{@code public WindowController()}</code>
+	 * </p>
+	 * 
+	 * initializes the controller for the window and creates its components
+	 */
 	public WindowController(){		
 		
 		bar = new MenuBarView(new Account("Gast","Test"));
@@ -158,7 +176,13 @@ public class WindowController {
 		});
 		
 	}
-	
+	/**<dd>
+	 * <h3><i> toggleSound </i></h3>
+	 * <p>
+	 * <code>{@code public toggleSound()}</code>
+	 * </p>
+	 * switches the sound between muted and active
+	 */
 	private void toggleSound() {
 		if(mute) {
 			bar.getSound().setIcon(soundIcon[0]);
@@ -173,12 +197,27 @@ public class WindowController {
 		}
 		view.requestFocus();
 	}
+	
+	/**<dd>
+	 * <h3><i> setTime </i></h3>
+	 * <p>
+	 * <code>{@code public setTime(double pTime)}</code>
+	 * </p>
+	 * Update the time in the MenuBarView
+	 */
 
 	public void setTime(double pTime)
 	{
 		bar.setTime(pTime);
 	}
 	
+	/**<dd>
+	 * <h3><i> addToScores </i></h3>
+	 * <p>
+	 * <code>{@code public addToScores()}</code>
+	 * </p>
+	 * adds the current score to accounts
+	 */
 	public void addToScores(){
 		this.accounts.add(bar.getPlayerAccount());
 	}
@@ -188,6 +227,15 @@ public class WindowController {
 		new WindowController();
 
 	}
+	
+	/**<dd>
+	 * <h3><i> showScoreList </i></h3>
+	 * <p>
+	 * <code>{@code public showScoreList()}</code>
+	 * </p>
+	 * Creates and opens a JDialog and a HighscoresPanel witch is then added.
+	 * Also implements ActionListeners for the Buttons.
+	 */
 	
 	public void showScoreList(){
 		
@@ -221,7 +269,15 @@ public class WindowController {
 		
 		saveHighscore();
 	}
-
+	
+	/**<dd>
+	 * <h3><i> toMainMenu </i></h3>
+	 * <p>
+	 * <code>{@code public toMainMenu()}</code>
+	 * </p>
+	 * switches the active Panel to the Menu
+	 */
+	
 	private void toMainMenu() {	
 		gameController.getSoundBox().select();
 		view.setMenuPanel(mPanel);
@@ -230,17 +286,51 @@ public class WindowController {
 		}
 		gameController.getSoundBox().stop();
 	}
-
+	
+	/**<dd>
+	 * <h3><i> getScorePanel </i></h3>
+	 * <p>
+	 * <code>{@code public getScorePanel()}</code>
+	 * </p>
+	 * returns the scorePanel
+	 */
+	
 	public HighscoresPanel getScorePanel() {
 		return scorePanel;
 	}
 	
+	/**<dd>
+	 * <h3><i> getAccounts </i></h3>
+	 * <p>
+	 * <code>{@code public getAccounts()}</code>
+	 * </p>
+	 * returns accounts
+	 */
+	
 	public ArrayList getAccounts() {
 		return accounts;
 	}
+	
+
+	/**<dd>
+	 * <h3><i> getBar </i></h3>
+	 * <p>
+	 * <code>{@code public getBar()}</code>
+	 * </p>
+	 * returns bar
+	 */
+	
 	public MenuBarView getBar() {
 		return bar;
 	}
+	
+	/**<dd>
+	 * <h3><i> saveHighscore </i></h3>
+	 * <p>
+	 * <code>{@code public saveHighscore()}</code>
+	 * </p>
+	 * saves accounts in zFile
+	 */
 	
 	public void saveHighscore()
 	{
