@@ -17,6 +17,14 @@ import account.*;
 import game.*;
 import window.*;
 
+/**
+ * <dd>
+	 * <h3><i> HighscorePanel </i></h3>
+	 * <p>
+	 * The class creates the Panel for the Highscore. The class extends JPanel.
+ * @author Sven
+ *
+ */
 public class HighscoresPanel extends JPanel{
 	
 	private ArrayList<Account> accounts;
@@ -28,6 +36,16 @@ public class HighscoresPanel extends JPanel{
 	private JButton backToMain;
 	private JButton backToGame;
 	
+	/**
+	 * <dd>
+	 * <h3><i> HighscoresPanel </i></h3>
+	 * <p>
+	 * <code>{@code public HighscoresPanel({@link ArrayList} accounts)}</code>
+	 * </p>
+	 * Initializes the Panel for the Highscore List, with JLists to show the player's name and time and buttons to
+	 * continue the game or return to the Main Menu.
+	 * @param accounts
+	 */
 	public HighscoresPanel(ArrayList accounts){
 		
 		this.accounts = accounts;
@@ -70,10 +88,28 @@ public class HighscoresPanel extends JPanel{
 		
 	}
 	
+	/**
+	 * <dd>
+	 * <h3><i> getBackToMain </i></h3>
+	 * <p>
+	 * <code>{@code public getBackToMain()}</code>
+	 * </p>
+	 * returns the Button to go back to Main Menu
+	 * @return JButton backToMain
+	 */
 	public JButton getBackToMain() {
 		return backToMain;
 	}
 
+	/**
+	 * <dd>
+	 * <h3><i> getBackTOGame </i></h3>
+	 * <p>
+	 * <code>{@code public getBackToGame(}</code>
+	 * </p>
+	 * returns the Button to resume the game
+	 * @return JButton backToGame
+	 */
 	public JButton getBackToGame() {
 		return backToGame;
 	}

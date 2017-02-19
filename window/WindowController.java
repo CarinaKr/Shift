@@ -23,7 +23,6 @@ import game.GamePanel;
 import menu.HighscoresPanel;
 import menu.MainMenuPanel;
 
-
 public class WindowController {
 	
 	private WindowView view;

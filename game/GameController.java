@@ -14,6 +14,7 @@ import window.WindowView;
 
 /**<dd>
 * <h3><i> GameController </i></h3>
+* <p>
 * The GameController controlls all the actions happening in the level. It has methods to
 * update the player movement and the game panel.
 * It also has a key-listener for shifting the game field and reacts to actions, such as 
@@ -251,7 +252,7 @@ public class GameController implements KeyListener{
 	 */
 	public void resetLevel(int pLevel)
 	{
-		hBackground=hLevels.getBackground(pLevel);
+		hBackground=hLevels.getBackground(zLevelNummer);
 		if(zVersion==1)
 		{
 			double pRotation = Math.toRadians (180);
@@ -262,6 +263,7 @@ public class GameController implements KeyListener{
 				hBackground[i] = op.filter(hBackground[i], null);
 			}
 		}
+		hBackground=hLevels.getBackground(pLevel);
 		zVersion=0;
 		hFelder=hLevels.getLevel(pLevel, zVersion);
 		hPlayer.setPosition(hLevels.getPlayerPosition(pLevel)[0]*zSize,hLevels.getPlayerPosition(pLevel)[1]*zSize);
